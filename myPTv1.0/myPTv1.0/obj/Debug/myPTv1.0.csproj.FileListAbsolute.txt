@@ -13,3 +13,8 @@ C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\myPTv1.0.exe
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\myPTv1.0.pdb
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\bin\Debug\Coding4Fun.Kinect.Wpf.dll
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\bin\Debug\Microsoft.Expression.Drawing.dll
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Login.baml
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Login.g.cs
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\bin\Debug\Coding4Fun.Kinect.WinForm.dll
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Test.baml
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Test.g.cs

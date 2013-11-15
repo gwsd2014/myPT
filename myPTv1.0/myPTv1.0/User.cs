@@ -10,10 +10,9 @@ namespace myPTv1._0
     {
         String username;
         //String password;
-
-        void User(String username)
+        public User(String uname)
         {
-            this.username = username;
+            this.username = uname;
         }
 
         void Login(String username, String password){

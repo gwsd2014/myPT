@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace myPTv1._0
 {
     /// <summary>
-    /// Interaction logic for Visualization.xaml
+    /// Interaction logic for Test.xaml
     /// </summary>
-    public partial class Visualization : Page
+    public partial class Test : UserControl
     {
-        public Visualization()
+        public Test()
         {
             InitializeComponent();
         }
