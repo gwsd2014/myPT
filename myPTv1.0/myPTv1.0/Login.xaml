@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="1300">
     <Grid>
-        <Controls:HoverButton x:Name="kinectButton" ImageSize="100" ImageSource="/Resources/RedButton-Hover.png"  ActiveImageSource="/Resources/RedButton-Active.png" IsTriggeredOnHover="True" Canvas.Left="265" Canvas.Top="59" TimeInterval="800" Margin="100" />
+        <Canvas HorizontalAlignment="Left" Height="480" Margin="552,70,0,0" VerticalAlignment="Top" Width="640" Name="mainCanvas">
+            <Controls:HoverButton x:Name="kinectButton" ImageSize="100" ImageSource="/Resources/RedButton-Hover.png"  ActiveImageSource="/Resources/RedButton-Active.png" IsTriggeredOnHover="True" Canvas.Left="229" Canvas.Top="200" TimeInterval="800" />
+            <Label Content="Press Button to Enter" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="121" Canvas.Top="82"/>
+            <Ellipse Fill="MidnightBlue" HorizontalAlignment="Left" Height="20" Stroke="Black" VerticalAlignment="Top" Width="20" Name="rightHandEllipse" Canvas.Left="440" Canvas.Top="127"/>
+        </Canvas>
+        <Image Name="imageVideoStream" HorizontalAlignment="Left" Height="240" Margin="52,165,0,0" VerticalAlignment="Top" Width="320"/>
     </Grid>
 </UserControl>

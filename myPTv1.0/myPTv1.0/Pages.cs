@@ -14,6 +14,7 @@ namespace myPTv1._0
     class Pages
     {
         private Login _first;
+        private FlexionExtension _second;
         /*
         private Patient _second;
         private  PT _third;
@@ -26,6 +27,8 @@ namespace myPTv1._0
          */
         private MainWindow _window;// = Application.Current;
     }
+
+
     /*
     public UserControl First
     {
@@ -37,12 +40,12 @@ namespace myPTv1._0
         }
     }
 
-    public UserControl Second
+    public Content Second
     {
         get 
         { 
             if (_first == null) 
-                _first =  new Patient();
+                _first =  new FlexionExtension();
             return _first;
         }
     }

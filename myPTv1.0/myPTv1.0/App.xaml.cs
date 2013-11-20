@@ -15,6 +15,14 @@ namespace myPTv1._0
     public partial class App : Application
     {
 
-        //App.Current.Properties["myProp"] = 5;
+          protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            MainWindow app = new MainWindow();
+            PatientViewModel context = new PatientViewModel();
+            app.DataContext = context;
+            app.Show();
+        }
     }
 }

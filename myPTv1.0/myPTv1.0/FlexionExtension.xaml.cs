@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 using Microsoft.Research.Kinect.Nui;
 using Microsoft.Research.Kinect.Audio;
 using Coding4Fun.Kinect.Wpf;
@@ -21,24 +22,29 @@ using Coding4Fun.Kinect.Wpf.Controls;
 namespace myPTv1._0
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for FlexionExtension.xaml
     /// </summary>
-    public partial class Login : UserControl
+    public partial class FlexionExtension : UserControl
     {
-        Runtime nui;
-        public Login()
+        public FlexionExtension()
         {
             InitializeComponent();
             SetupKinect();
         }
-      
+
+        Runtime nui;
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+              
+        }
+
         private void SetupKinect()
         {
             //Lets a user know if a kinect has not been connected
             if (Runtime.Kinects.Count == 0) //note how to check # of kinects available
             {
                 //do something to show that the kinect is not kinected.
-                Console.WriteLine("No Kinect detected");
+                //printf("No Kinect connected");
             }
             else
             {
@@ -71,15 +77,24 @@ namespace myPTv1._0
                 nui.NuiCamera.ElevationAngle = Camera.ElevationMaximum;
                 nui.NuiCamera.ElevationAngle = 2;
 
-
                 kinectButton.Click += new RoutedEventHandler(kinectButton_Clicked);
                 //kinectButton.Release += new RoutedEventHandler(kinectButton_whatever);
             }
         }
 
-        private void nui_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        void nui_VideoFrameReady(object sender, ImageFrameReadyEventArgs e)
         {
-            //Console.Write("skeletonFrameready?\n");
+            //Just shows what the camera is capturing
+            PlanarImage image = e.ImageFrame.Image;
+            image1.Source = BitmapSource.Create(image.Width, image.Height, 96, 96, PixelFormats.Bgr32, null, image.Bits, image.Width * image.BytesPerPixel);
+            //Can also use this from coding for fun
+            //image1.Source = e.ImageFrame.ToBitmapSource();
+        }
+       
+
+        //fires when we have a tracked skeleton
+        void nui_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        {
             SkeletonFrame allSkeletons = e.SkeletonFrame;
 
             //Get just the first skeleton
@@ -88,21 +103,38 @@ namespace myPTv1._0
                                      where s.TrackingState == SkeletonTrackingState.Tracked
                                      select s).FirstOrDefault();
 
+
+            //Makes Ellipse follow knee, ankle and hip on right side!
+            //The SetEllipsePosition scales the joint data, so don't do it here!
+            SetEllipsePosition(kneeEllipse, skeleton.Joints[JointID.KneeRight]);
+            SetEllipsePosition(ankleEllipse, skeleton.Joints[JointID.AnkleRight]);
+            SetEllipsePosition(thighEllipse, skeleton.Joints[JointID.HipRight]);
             SetEllipsePosition(rightHandEllipse, skeleton.Joints[JointID.HandRight]);
+
+            SetLinePosition(femur, skeleton.Joints[JointID.HipRight], skeleton.Joints[JointID.KneeRight]);
+            SetLinePosition(tibia, skeleton.Joints[JointID.KneeRight], skeleton.Joints[JointID.AnkleRight]);
+
+            ShowAngle(skeleton.Joints[JointID.HipRight], skeleton.Joints[JointID.KneeRight], skeleton.Joints[JointID.AnkleRight]);
 
             if (!CheckButton(kinectButton, rightHandEllipse))
             {
-                //create action on release maybe?
+                kinectButton_Released();
             }
-        }
 
+        }
 
         private void kinectButton_Clicked(object sender, RoutedEventArgs e)
         {
             //Does something when the button has been clicked
-            Console.WriteLine("Button has been clicked");
-            //Move to main menu page
-            //MainWindow.SetPage(new FlexionExtension());
+            ButtonStatus.Text = "Button has been triggered";
+            //MainWindow.SetPage(Pages.First);
+        }
+
+        private void kinectButton_Released()
+        {
+            //Does something when the button is released
+            ButtonStatus.Text = "Button has been released";
+
         }
 
         public static double _itemTop, _topBoundary, _bottomBoundary, _itemLeft, _leftBoundary, _rightBoundary;
@@ -142,6 +174,7 @@ namespace myPTv1._0
                 //Midpoint of target is outside of left or right
                 return false;
             }
+
             return true;
         }
 
@@ -159,9 +192,10 @@ namespace myPTv1._0
             }
         }
 
-
+        
         public int scaleWidth = 640;
         public int scaleHeight = 480;
+
         private void SetEllipsePosition(FrameworkElement ellipse, Joint joint)
         {
             var scaledJoint = joint.ScaleTo(scaleWidth, scaleHeight, .5f, .5f);
@@ -170,13 +204,50 @@ namespace myPTv1._0
             Canvas.SetTop(ellipse, scaledJoint.Position.Y);
         }
 
-        private void nui_VideoFrameReady(object sender, ImageFrameReadyEventArgs e)
+        public void SetLinePosition(Line line, Joint joint1, Joint joint2)
         {
-            Console.Write("VIDEO FRAME READY \n");
-            PlanarImage image = e.ImageFrame.Image;
-            imageVideoStream.Source = BitmapSource.Create(image.Width, image.Height, 96, 96, PixelFormats.Bgr32, null, image.Bits, image.Width * image.BytesPerPixel);
-            //Can also use this from coding for fun
-            //imageVideoStream.Source = e.ImageFrame.ToBitmapSource();
+            var scaledJoint1 = joint1.ScaleTo(scaleWidth, scaleHeight, .5f, .5f);
+            var scaledJoint2 = joint2.ScaleTo(scaleWidth, scaleHeight, .5f, .5f);
+
+            line.X1 = scaledJoint1.Position.X;
+            line.X2 = scaledJoint2.Position.X;
+            line.Y1 = scaledJoint1.Position.Y;
+            line.Y2 = scaledJoint2.Position.Y;
+        }
+
+        public void ShowAngle(Joint alpha, Joint beta, Joint gamma)
+        {
+            double angle = 0.0;
+            /*
+            double a = System.Math.Abs(System.Math.Sqrt((beta.Position.X-gamma.Position.X)*(beta.Position.X-gamma.Position.X)+((beta.Position.Y-gamma.Position.Y)*(beta.Position.Y-gamma.Position.Y))));
+            double b = System.Math.Abs(System.Math.Sqrt((alpha.Position.X-gamma.Position.X)*(alpha.Position.X-gamma.Position.X)+((alpha.Position.Y-gamma.Position.Y)*(alpha.Position.Y-gamma.Position.Y))));
+            double c = System.Math.Abs(System.Math.Sqrt((alpha.Position.X-beta.Position.X)*(alpha.Position.X-beta.Position.X)+((alpha.Position.Y-beta.Position.Y)*(alpha.Position.Y-beta.Position.Y))));
+            angle = Math.Abs(System.Math.Acos((a * a + c * c - b * b)/(2*a)));
+
+            */
+            double[] alphabeta = { alpha.Position.X - beta.Position.X, alpha.Position.Y - beta.Position.Y, alpha.Position.Z - beta.Position.Z };
+            double[] gammabeta = { gamma.Position.X - beta.Position.X, gamma.Position.Y - beta.Position.Y, gamma.Position.Z - beta.Position.Z };
+
+            double sumofproducts = 0.0;
+            for (int i = 0; i < 3; i++)
+            {
+                sumofproducts += alphabeta[i] * gammabeta[i];
+            }
+
+            double alphabeta_magitude = System.Math.Sqrt(alphabeta[0] * alphabeta[0] + alphabeta[1] * alphabeta[1] + alphabeta[2] * alphabeta[2]);
+            double gammabeta_magitude = System.Math.Sqrt(gammabeta[0] * gammabeta[0] + gammabeta[1] * gammabeta[1] + gammabeta[2] * gammabeta[2]);
+
+            angle = System.Math.Acos(sumofproducts / (alphabeta_magitude * gammabeta_magitude));
+
+            angle = (angle * (180 / Math.PI));
+            AngleText.Content = ((int)angle).ToString();
+            AngleText.FontSize = 30;
+            //AngleText.Canvas.Left = beta.Position.X+10;
+            //AngleText.Canvas.Top = beta.Position.Y;
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            nui.Uninitialize();
         }
     }
 }
