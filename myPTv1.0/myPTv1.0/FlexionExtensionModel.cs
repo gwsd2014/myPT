@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace myPTv1._0
 {
-    class FlexionExensionModel : ObservableObject
+    class FlexionExtensionModel : ObservableObject
     {
         #region Fields
 

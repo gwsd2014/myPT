@@ -23,6 +23,7 @@ namespace myPTv1._0
             //Add available pages
             //PageViewModels.Add(new HomeViewModel());
             PageViewModels.Add(new PatientViewModel());
+            PageViewModels.Add(new FlexionExtensionViewModel());
 
             CurrentPageViewModel = PageViewModels[0];
         }

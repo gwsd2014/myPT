@@ -69,10 +69,11 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationViewModel.cs" />
-    <Compile Include="FlexionExensionModel.cs" />
+    <Compile Include="FlexionExtensionModel.cs" />
     <Compile Include="FlexionExtensionView.xaml.cs">
       <DependentUpon>FlexionExtensionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FlexionExtensionViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
