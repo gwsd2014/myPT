@@ -8,7 +8,6 @@ C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Login.baml
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Test.baml
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\ApplicationView.g.cs
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Login.g.cs
-C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\MainWindow.g.cs
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\PatientView.g.cs
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\Test.g.cs
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\App.g.cs
@@ -16,7 +15,6 @@ C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\GeneratedInte
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\myPTv1.0_MarkupCompile.cache
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\myPTv1.0_MarkupCompile.lref
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\ApplicationView.baml
-C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\MainWindow.baml
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\PatientView.baml
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\myPTv1.0.g.resources
 C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\obj\Debug\myPTv1._0.Properties.Resources.resources
