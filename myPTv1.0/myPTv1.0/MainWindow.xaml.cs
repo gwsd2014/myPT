@@ -34,7 +34,7 @@ namespace myPTv1._0
             
             //Set the window view to the start point
             Console.Write("I am in the window loaded method");
-            mainContentArea.Content = new Login();
+            mainContentArea.Content = new FlexionExtensionView();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

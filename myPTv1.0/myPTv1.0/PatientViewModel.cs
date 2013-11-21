@@ -120,7 +120,9 @@ namespace myPTv1._0
             //For now return new user
             PatientModel p = new PatientModel();
             p.UserName = UserName;
-            p.DateOfLastSession = DateTime.Now.AddHours(-12.0);
+            p.DateOfLastSession = DateTime.Now.AddHours(-12.00).ToString();
+            Console.WriteLine("In GetPatient");
+            Console.WriteLine(p.DateOfLastSession);
             CurrentPatient = p;
         }
 
@@ -134,6 +136,7 @@ namespace myPTv1._0
         {
             //if Date of last session > 12 hrs ago
             //open up that patient's homepage!
+
         }
         #endregion 
 

@@ -69,8 +69,9 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationViewModel.cs" />
-    <Compile Include="FlexionExtension.xaml.cs">
-      <DependentUpon>FlexionExtension.xaml</DependentUpon>
+    <Compile Include="FlexionExensionModel.cs" />
+    <Compile Include="FlexionExtensionView.xaml.cs">
+      <DependentUpon>FlexionExtensionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="IPageViewModel.cs" />
     <Compile Include="Login.xaml.cs">
@@ -92,7 +93,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FlexionExtension.xaml">
+    <Page Include="FlexionExtensionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

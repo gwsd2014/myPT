@@ -22,11 +22,11 @@ using Coding4Fun.Kinect.Wpf.Controls;
 namespace myPTv1._0
 {
     /// <summary>
-    /// Interaction logic for FlexionExtension.xaml
+    /// Interaction logic for FlexionExtensionView.xaml
     /// </summary>
-    public partial class FlexionExtension : UserControl
+    public partial class FlexionExtensionView : UserControl
     {
-        public FlexionExtension()
+        public FlexionExtensionView()
         {
             InitializeComponent();
             SetupKinect();
@@ -110,6 +110,33 @@ namespace myPTv1._0
             SetEllipsePosition(ankleEllipse, skeleton.Joints[JointID.AnkleRight]);
             SetEllipsePosition(thighEllipse, skeleton.Joints[JointID.HipRight]);
             SetEllipsePosition(rightHandEllipse, skeleton.Joints[JointID.HandRight]);
+
+            SetEllipsePosition(LkneeEllipse, skeleton.Joints[JointID.KneeLeft]);
+            SetEllipsePosition(LankleEllipse, skeleton.Joints[JointID.AnkleLeft]);
+            SetEllipsePosition(LthighEllipse, skeleton.Joints[JointID.HipLeft]);
+            SetEllipsePosition(leftHandEllipse, skeleton.Joints[JointID.HandLeft]);
+            SetEllipsePosition(LElbowEllipse, skeleton.Joints[JointID.ElbowLeft]);
+            SetEllipsePosition(RElbowEllipse, skeleton.Joints[JointID.ElbowRight]);
+            SetEllipsePosition(headEllipse, skeleton.Joints[JointID.Head]);
+            SetEllipsePosition(neckEllipse, skeleton.Joints[JointID.ShoulderCenter]);
+            SetEllipsePosition(LShoulderEllipse, skeleton.Joints[JointID.ShoulderLeft]);
+            SetEllipsePosition(RShoulderEllipse, skeleton.Joints[JointID.ShoulderRight]);
+            SetEllipsePosition(hipEllipse, skeleton.Joints[JointID.HipCenter]);
+            SetEllipsePosition(spineEllipse, skeleton.Joints[JointID.Spine]);
+
+            SetLinePosition(Neck, skeleton.Joints[JointID.Head], skeleton.Joints[JointID.ShoulderCenter]);
+            SetLinePosition(ClavicleLeft, skeleton.Joints[JointID.ShoulderLeft], skeleton.Joints[JointID.ShoulderCenter]);
+            SetLinePosition(ClavicleRight, skeleton.Joints[JointID.ShoulderRight], skeleton.Joints[JointID.ShoulderCenter]);
+            SetLinePosition(Spine, skeleton.Joints[JointID.Spine], skeleton.Joints[JointID.ShoulderCenter]);
+            SetLinePosition(HumerusLeft, skeleton.Joints[JointID.ShoulderLeft], skeleton.Joints[JointID.ElbowLeft]);
+            SetLinePosition(HumerusRight, skeleton.Joints[JointID.ShoulderRight], skeleton.Joints[JointID.ElbowRight]);
+            SetLinePosition(RadiusLeft, skeleton.Joints[JointID.ElbowLeft], skeleton.Joints[JointID.WristLeft]);
+            SetLinePosition(RadiusRight, skeleton.Joints[JointID.ElbowRight], skeleton.Joints[JointID.WristRight]);
+            SetLinePosition(PelvisLeft, skeleton.Joints[JointID.HipLeft], skeleton.Joints[JointID.HipCenter]);
+            SetLinePosition(PelvisRight, skeleton.Joints[JointID.HipRight], skeleton.Joints[JointID.HipCenter]);
+            SetLinePosition(Spine, skeleton.Joints[JointID.Spine], skeleton.Joints[JointID.HipCenter]);
+            SetLinePosition(FemurLeft, skeleton.Joints[JointID.HipLeft], skeleton.Joints[JointID.KneeLeft]);
+            SetLinePosition(TibiaLeft, skeleton.Joints[JointID.KneeLeft], skeleton.Joints[JointID.AnkleLeft]);
 
             SetLinePosition(femur, skeleton.Joints[JointID.HipRight], skeleton.Joints[JointID.KneeRight]);
             SetLinePosition(tibia, skeleton.Joints[JointID.KneeRight], skeleton.Joints[JointID.AnkleRight]);
@@ -198,7 +225,7 @@ namespace myPTv1._0
 
         private void SetEllipsePosition(FrameworkElement ellipse, Joint joint)
         {
-            var scaledJoint = joint.ScaleTo(scaleWidth, scaleHeight, .5f, .5f);
+           var scaledJoint = joint.ScaleTo(scaleWidth, scaleHeight);
 
             Canvas.SetLeft(ellipse, scaledJoint.Position.X);
             Canvas.SetTop(ellipse, scaledJoint.Position.Y);
@@ -206,8 +233,9 @@ namespace myPTv1._0
 
         public void SetLinePosition(Line line, Joint joint1, Joint joint2)
         {
-            var scaledJoint1 = joint1.ScaleTo(scaleWidth, scaleHeight, .5f, .5f);
-            var scaledJoint2 = joint2.ScaleTo(scaleWidth, scaleHeight, .5f, .5f);
+       
+            var scaledJoint1 = joint1.ScaleTo(scaleWidth, scaleHeight);
+            var scaledJoint2 = joint2.ScaleTo(scaleWidth, scaleHeight);
 
             line.X1 = scaledJoint1.Position.X;
             line.X2 = scaledJoint2.Position.X;

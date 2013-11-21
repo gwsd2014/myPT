@@ -11,14 +11,14 @@ namespace myPTv1._0
     {
         #region Fields
 
-        private string _userName;
+        private String _userName;
         private DateTime _dateOfLastSession;
 
         #endregion
 
         #region Properites
 
-        public string UserName
+        public String UserName
         {
             get { return _userName; }
             set
@@ -32,14 +32,18 @@ namespace myPTv1._0
             }
         }
 
-        public DateTime DateOfLastSession
+        public String DateOfLastSession
         {
-            get { return _dateOfLastSession; }
+            get {
+                Console.Write("Getter of DateofLastSession: ");
+                Console.WriteLine(_dateOfLastSession.ToString());    
+                return _dateOfLastSession.ToString(); 
+            }
             set
             {
-                if (!value.Equals(_dateOfLastSession))
+                if (DateTime.Compare(DateTime.Parse(value), _dateOfLastSession) != 0)
                 {
-                    _dateOfLastSession = value;
+                    _dateOfLastSession = DateTime.Parse(value);
                     OnPropertyChanged("DateOfLastSession");
                 }
             }

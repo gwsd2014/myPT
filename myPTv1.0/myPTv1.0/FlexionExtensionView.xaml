@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="myPTv1._0.FlexionExtensionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1300">
+    <Grid>
+        <Canvas HorizontalAlignment="Left" Height="480" Margin="5,20,0,0" x:Name="canvas0" VerticalAlignment="Top" Width="640">
+            <Image Height="480" HorizontalAlignment="Left" Margin="5,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="640" />
+        </Canvas>
+        <Canvas HorizontalAlignment="Left" Height="480" Margin="645,89,0,0" x:Name="canvas1" VerticalAlignment="Top" Width="640">
+            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="kneeEllipse" Stroke="Black" Width="20" Fill="Orange" />
+            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="ankleEllipse" Stroke="Black" Width="20" Fill="SlateGray" />
+            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="SpringGreen" Height="20" x:Name="thighEllipse" Stroke="Black" Width="20" />
+            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Tomato" Height="20" x:Name="rightHandEllipse" Stroke="Black" Width="20" />
+
+            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="LkneeEllipse" Stroke="Black" Width="20" Fill="Black" />
+            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="LankleEllipse" Stroke="Black" Width="20" Fill="Black" />
+            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="Black" Height="20" x:Name="LthighEllipse" Stroke="Black" Width="20" />
+            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Black" Height="20" x:Name="leftHandEllipse" Stroke="Black" Width="20" />
+
+            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="LElbowEllipse" Stroke="Black" Width="20" Fill="Black" />
+            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="RElbowEllipse" Stroke="Black" Width="20" Fill="Black" />
+            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="Black" Height="20" x:Name="headEllipse" Stroke="Black" Width="20" />
+            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Black" Height="20" x:Name="neckEllipse" Stroke="Black" Width="20" />
+            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="LShoulderEllipse" Stroke="Black" Width="20" Fill="Black" />
+            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="RShoulderEllipse" Stroke="Black" Width="20" Fill="Black" />
+            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="Black" Height="20" x:Name="hipEllipse" Stroke="Black" Width="20" />
+            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Black" Height="20" x:Name="spineEllipse" Stroke="Black" Width="20" />
+
+
+            <Line Stroke="Black" StrokeThickness="8" x:Name="FemurLeft"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="TibiaLeft"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="Neck"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="ClavicleLeft"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="ClavicleRight"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="Spine"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="HumerusLeft"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="HumerusRight"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="RadiusLeft"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="RadiusRight"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="PelvisLeft"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="PelvisRight"/>
+
+            <Line Stroke="Tomato" StrokeThickness="8" x:Name="femur"/>
+            <Line Stroke="Tomato" StrokeThickness="8" x:Name="tibia"/>
+            
+            <Label Canvas.Left="315" Canvas.Top="27" x:Name="AngleText" RenderTransformOrigin="20.7,1.7"/>
+            <Controls:HoverButton x:Name="kinectButton" ImageSize="100" ImageSource="/Resources/RedButton-Hover.png"  ActiveImageSource="/Resources/RedButton-Active.png" IsTriggeredOnHover="True" Canvas.Left="485" Canvas.Top="43" TimeInterval="800" />
+            <TextBlock Canvas.Left="237" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="424" x:Name="ButtonStatus" FontSize="32" RenderTransformOrigin="0.497,0.501"/>
+        </Canvas>
+    </Grid>
+</UserControl>

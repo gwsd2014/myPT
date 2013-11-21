@@ -14,7 +14,7 @@ namespace myPTv1._0
     class Pages
     {
         private Login _first;
-        private FlexionExtension _second;
+        private FlexionExtensionView _second;
         /*
         private Patient _second;
         private  PT _third;
