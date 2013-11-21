@@ -19,8 +19,9 @@ namespace myPTv1._0
         {
             base.OnStartup(e);
 
-            MainWindow app = new MainWindow();
-            PatientViewModel context = new PatientViewModel();
+
+            ApplicationView app = new ApplicationView();
+            ApplicationViewModel context = new ApplicationViewModel();
             app.DataContext = context;
             app.Show();
         }

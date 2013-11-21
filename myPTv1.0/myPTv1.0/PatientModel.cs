@@ -10,6 +10,7 @@ namespace myPTv1._0
     class PatientModel : ObservableObject
     {
         #region Fields
+
         private string _userName;
         private DateTime _dateOfLastSession;
 
@@ -22,7 +23,7 @@ namespace myPTv1._0
             get { return _userName; }
             set
             {
-                if (value.Equals(_userName, StringComparison.Ordinal))
+                if (!value.Equals(_userName, StringComparison.Ordinal))
                 {
                     _userName = value;
                     //ALSO UPDATE DB!
@@ -36,7 +37,7 @@ namespace myPTv1._0
             get { return _dateOfLastSession; }
             set
             {
-                if (value.Equals(_dateOfLastSession))
+                if (!value.Equals(_dateOfLastSession))
                 {
                     _dateOfLastSession = value;
                     OnPropertyChanged("DateOfLastSession");

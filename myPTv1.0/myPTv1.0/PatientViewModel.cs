@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace myPTv1._0
 {
-    class PatientViewModel : ObservableObject
+    class PatientViewModel : ObservableObject, IPageViewModel
     {
         #region Fields
         private string _userName;
@@ -15,10 +15,16 @@ namespace myPTv1._0
         private PatientModel _currentPatient;
         private ICommand _getPatientCommand;
         private ICommand _savePatientCommand;
+        private ICommand _openPatientCommand;
 
         #endregion //Fields
 
         #region Public Properties/Commands
+
+        public string Name
+        {
+            get { return "Patients"; }
+        }
 
         public PatientModel CurrentPatient
         {
@@ -48,7 +54,7 @@ namespace myPTv1._0
             }
         }
 
-        public ICommand GetProductCommand
+        public ICommand GetPatientCommand
         {
             get
             {
@@ -56,10 +62,25 @@ namespace myPTv1._0
                 {
                     _getPatientCommand = new RelayCommand(
                        param => GetPatient(),
-                       param => UserName != null
+                       param => (UserName != null)
                     );
                 }
                 return _getPatientCommand;
+            }
+        }
+
+        public ICommand OpenPatientCommand
+        {
+            get
+            {
+                if (_openPatientCommand == null)
+                {
+                    _openPatientCommand = new RelayCommand(
+                        param => OpenPatient(),
+                        param => (CurrentPatient != null)
+                    );
+                }
+                return _openPatientCommand;
             }
         }
         
@@ -73,8 +94,21 @@ namespace myPTv1._0
                     OnPropertyChanged("UserName");
                 }
             }
-
         }
+
+        public DateTime DateOfLastSession
+        {
+            get { return _dateOfLastSession; }
+            set
+            {
+                if (!value.Equals(_dateOfLastSession))
+                {
+                    _dateOfLastSession = value;
+                    OnPropertyChanged("DateOfLastSession");
+                }
+            }
+        }
+
 
         #endregion //Properties
 
@@ -86,7 +120,7 @@ namespace myPTv1._0
             //For now return new user
             PatientModel p = new PatientModel();
             p.UserName = UserName;
-            p.DateOfLastSession = DateTime.Now;
+            p.DateOfLastSession = DateTime.Now.AddHours(-12.0);
             CurrentPatient = p;
         }
 
@@ -94,6 +128,12 @@ namespace myPTv1._0
         {
             //Save to Database here!
             Console.WriteLine("In Save Patient");
+        }
+
+        private void OpenPatient()
+        {
+            //if Date of last session > 12 hrs ago
+            //open up that patient's homepage!
         }
         #endregion 
 

@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="myPTv1._0.PatientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:myPTv1._0"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="400">
+    <UserControl.Resources>
+        <!-- DataTemplate (View) for Patient Model -->
+        <DataTemplate DataType="{x:Type local:PatientModel}">
+            <Border BorderBrush="Black" BorderThickness="1" Padding="20">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"  Text="UserName" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding UserName}" Margin="5" Width="150"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1"  Text="Last Session" VerticalAlignment="Center" Margin="5" />
+                    <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding DateofLastSession}" Margin="5" Width="150" />
+
+                    <Button Name="openButton" ClickMode="Press" Grid.Column="1" Grid.Row="2"  VerticalAlignment="Center" Margin="5">
+                        Open
+                    </Button>
+
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <DockPanel Margin="20">
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Enter Username:" VerticalAlignment="Center" />
+
+            <TextBox Margin="10,2" Width="50" VerticalAlignment="Center" Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button Content="Ok" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding Path=GetPatientCommand}" IsDefault="True" Width="100" />
+
+        </DockPanel>
+
+        <ContentControl Margin="10" Content="{Binding Path=CurrentPatient}" />
+    </DockPanel>
+</UserControl>
