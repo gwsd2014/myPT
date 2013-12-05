@@ -8,9 +8,9 @@
              d:DesignHeight="600" d:DesignWidth="1300">
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="480" Margin="5,20,0,0" x:Name="canvas0" VerticalAlignment="Top" Width="640">
-            <Image Height="480" HorizontalAlignment="Left" Margin="5,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="640" />
+            <Image Height="480" HorizontalAlignment="Left" Margin="655,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="640" />
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="480" Margin="645,89,0,0" x:Name="canvas1" VerticalAlignment="Top" Width="640">
+        <Canvas HorizontalAlignment="Left" Height="480" Margin="5,89,0,0" x:Name="canvas1" VerticalAlignment="Top" Width="640">
             <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="kneeEllipse" Stroke="Black" Width="20" Fill="Orange" />
             <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="ankleEllipse" Stroke="Black" Width="20" Fill="SlateGray" />
             <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="SpringGreen" Height="20" x:Name="thighEllipse" Stroke="Black" Width="20" />
