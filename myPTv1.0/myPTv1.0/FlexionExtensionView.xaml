@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="myPTv1._0.FlexionExtensionView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf"
+             xmlns:local="clr-namespace:myPTv1._0" x:Class="myPTv1._0.FlexionExtensionView"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
     <Grid>
@@ -46,10 +47,13 @@
 
             <Line Stroke="Tomato" StrokeThickness="8" x:Name="femur"/>
             <Line Stroke="Tomato" StrokeThickness="8" x:Name="tibia"/>
-            
+
             <Label Canvas.Left="315" Canvas.Top="27" x:Name="AngleText" RenderTransformOrigin="20.7,1.7"/>
-            <Controls:HoverButton x:Name="kinectButton" ImageSize="100" ImageSource="/Resources/RedButton-Hover.png"  ActiveImageSource="/Resources/RedButton-Active.png" IsTriggeredOnHover="True" Canvas.Left="485" Canvas.Top="43" TimeInterval="800" />
+            <Controls:HoverButton x:Name="kinectButton" ImageSize="100" ImageSource="/Resources/RedButton-Hover.png"  ActiveImageSource="/Resources/RedButton-Active.png" IsTriggeredOnHover="True" Canvas.Left="485" Canvas.Top="43" TimeInterval="800"/>
             <TextBlock Canvas.Left="237" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="424" x:Name="ButtonStatus" FontSize="32" RenderTransformOrigin="0.497,0.501"/>
+            <Button Content="Save Flexion" Canvas.Left="90" Canvas.Top="112" Width="102" Command="{Binding SaveFlexionCommand}" Height="31"/>
+            <Button Content="Save Extension" Canvas.Left="90" Canvas.Top="206" Width="116" Command="{Binding SaveExtensionCommand}" Height="37"/>
+            <local:ButtonView HorizontalAlignment="Left" VerticalAlignment="Top" Name="ButtonAttempt" Canvas.Left="430" Canvas.Top="270"/>
         </Canvas>
     </Grid>
 </UserControl>

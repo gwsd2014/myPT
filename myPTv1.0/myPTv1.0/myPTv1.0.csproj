@@ -47,7 +47,9 @@
     <Reference Include="Microsoft.Research.Kinect, Version=1.0.0.45, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -69,12 +71,20 @@
       <DependentUpon>ApplicationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="ButtonModel.cs" />
+    <Compile Include="ButtonView.xaml.cs">
+      <DependentUpon>ButtonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonViewModel.cs" />
+    <Compile Include="IKinectService.cs" />
+    <Compile Include="KinectRuntime.cs" />
     <Compile Include="FlexionExtensionModel.cs" />
     <Compile Include="FlexionExtensionView.xaml.cs">
       <DependentUpon>FlexionExtensionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlexionExtensionViewModel.cs" />
     <Compile Include="IPageViewModel.cs" />
+    <Compile Include="KinectViewModelLoader.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -85,11 +95,16 @@
     <Compile Include="ObservableObject.cs" />
     <Compile Include="PatientModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="SkeletonEventArgs.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
     <Page Include="ApplicationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ButtonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

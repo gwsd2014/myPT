@@ -21,6 +21,7 @@ namespace myPTv1._0
 
         #region Public Properties/Commands
 
+        //In order to implement the IPageViewModel interface
         public string Name
         {
             get { return "Patients"; }
