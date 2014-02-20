@@ -12,48 +12,135 @@
             <Image Height="480" HorizontalAlignment="Left" Margin="655,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="640" />
         </Canvas>
         <Canvas HorizontalAlignment="Left" Height="480" Margin="5,89,0,0" x:Name="canvas1" VerticalAlignment="Top" Width="640">
-            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="kneeEllipse" Stroke="Black" Width="20" Fill="Orange" />
-            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="ankleEllipse" Stroke="Black" Width="20" Fill="SlateGray" />
-            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="SpringGreen" Height="20" x:Name="thighEllipse" Stroke="Black" Width="20" />
-            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Tomato" Height="20" x:Name="rightHandEllipse" Stroke="Black" Width="20" />
 
-            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="LkneeEllipse" Stroke="Black" Width="20" Fill="Black" />
-            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="LankleEllipse" Stroke="Black" Width="20" Fill="Black" />
-            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="Black" Height="20" x:Name="LthighEllipse" Stroke="Black" Width="20" />
-            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Black" Height="20" x:Name="leftHandEllipse" Stroke="Black" Width="20" />
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse0"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X0}" Y="{Binding Y0}"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse1"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X1}"     Y="{Binding Y1}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse2"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X2}"     Y="{Binding Y2}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse3"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X3}"     Y="{Binding Y3}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse4"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X4}"     Y="{Binding Y4}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse5"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X5}"     Y="{Binding Y5}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse6"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X6}"     Y="{Binding Y6}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse7"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X7}"     Y="{Binding Y7}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse8"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X8}"     Y="{Binding Y8}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse9"  Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X9}"     Y="{Binding Y9}"  />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse10" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X10}"    Y="{Binding Y10}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse11" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X11}"    Y="{Binding Y11}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse12" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X12}"    Y="{Binding Y12}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse13" Stroke="Red"   Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X13}"    Y="{Binding Y13}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse14" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X14}"    Y="{Binding Y14}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse15" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X15}"    Y="{Binding Y15}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse16" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X16}"    Y="{Binding Y16}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse17" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X17}"    Y="{Binding Y17}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse18" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X18}"    Y="{Binding Y18}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse Fill="Black" Height="20" x:Name="Ellipse19" Stroke="Black" Width="20" >
+                <Ellipse.RenderTransform>
+                    <TranslateTransform  X="{Binding X19}"    Y="{Binding Y19}" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
 
-            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="LElbowEllipse" Stroke="Black" Width="20" Fill="Black" />
-            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="RElbowEllipse" Stroke="Black" Width="20" Fill="Black" />
-            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="Black" Height="20" x:Name="headEllipse" Stroke="Black" Width="20" />
-            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Black" Height="20" x:Name="neckEllipse" Stroke="Black" Width="20" />
-            <Ellipse Canvas.Left="0" Canvas.Top="0" Height="20" x:Name="LShoulderEllipse" Stroke="Black" Width="20" Fill="Black" />
-            <Ellipse Canvas.Left="50" Canvas.Top="0" Height="20" x:Name="RShoulderEllipse" Stroke="Black" Width="20" Fill="Black" />
-            <Ellipse Canvas.Left="100" Canvas.Top="0" Fill="Black" Height="20" x:Name="hipEllipse" Stroke="Black" Width="20" />
-            <Ellipse Canvas.Left="157" Canvas.Top="0" Fill="Black" Height="20" x:Name="spineEllipse" Stroke="Black" Width="20" />
+            <Line Stroke="Black" StrokeThickness="8" x:Name="a"  X1="{Binding Xa}" X2="{Binding Ya}" Y1="{Binding Za}" Y2="{Binding Wa}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="b"   X1="{Binding Xb}" X2="{Binding Yb}" Y1="{Binding Zb}" Y2="{Binding Wb}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="c"   X1="{Binding Xc}" X2="{Binding Yc}" Y1="{Binding Zc}" Y2="{Binding Wc}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="d"   X1="{Binding Xd}" X2="{Binding Yd}" Y1="{Binding Zd}" Y2="{Binding Wd}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="e"   X1="{Binding Xe}" X2="{Binding Ye}" Y1="{Binding Ze}" Y2="{Binding We}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="f"   X1="{Binding Xf}" X2="{Binding Yf}" Y1="{Binding Zf}" Y2="{Binding Wf}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="g"   X1="{Binding Xg}" X2="{Binding Yg}" Y1="{Binding Zg}" Y2="{Binding Wg}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="h"   X1="{Binding Xh}" X2="{Binding Yh}" Y1="{Binding Zh}" Y2="{Binding Wh}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="i"   X1="{Binding Xi}" X2="{Binding Yi}" Y1="{Binding Zi}" Y2="{Binding Wi}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="j"   X1="{Binding Xj}" X2="{Binding Yj}" Y1="{Binding Zj}" Y2="{Binding Wj}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="k"   X1="{Binding Xk}" X2="{Binding Yk}" Y1="{Binding Zk}" Y2="{Binding Wk}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="l"   X1="{Binding Xl}" X2="{Binding Yl}" Y1="{Binding Zl}" Y2="{Binding Wl}"/>
+            <Line Stroke="Tomato" StrokeThickness="8" x:Name="m"   X1="{Binding Xm}" X2="{Binding Ym}" Y1="{Binding Zm}" Y2="{Binding Wm}"/>
+            <Line Stroke="Tomato" StrokeThickness="8" x:Name="n"   X1="{Binding Xn}" X2="{Binding Yn}" Y1="{Binding Zn}" Y2="{Binding Wn}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="o"   X1="{Binding Xo}" X2="{Binding Yo}" Y1="{Binding Zo}" Y2="{Binding Wo}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="p"   X1="{Binding Xp}" X2="{Binding Yp}" Y1="{Binding Zp}" Y2="{Binding Wp}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="q"   X1="{Binding Xq}" X2="{Binding Yq}" Y1="{Binding Zq}" Y2="{Binding Wq}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="r"  X1="{Binding Xr}" X2="{Binding Yr}" Y1="{Binding Zr}" Y2="{Binding Wr}"/>
+            <Line Stroke="Black" StrokeThickness="8" x:Name="s"  X1="{Binding Xs}" X2="{Binding Ys}" Y1="{Binding Zs}" Y2="{Binding Ws}"/>
 
-
-            <Line Stroke="Black" StrokeThickness="8" x:Name="FemurLeft"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="TibiaLeft"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="Neck"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="ClavicleLeft"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="ClavicleRight"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="Spine"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="HumerusLeft"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="HumerusRight"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="RadiusLeft"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="RadiusRight"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="PelvisLeft"/>
-            <Line Stroke="Black" StrokeThickness="8" x:Name="PelvisRight"/>
-
-            <Line Stroke="Tomato" StrokeThickness="8" x:Name="femur"/>
-            <Line Stroke="Tomato" StrokeThickness="8" x:Name="tibia"/>
-
-            <Label Canvas.Left="315" Canvas.Top="27" x:Name="AngleText" RenderTransformOrigin="20.7,1.7"/>
+            <Label Canvas.Left="315" Canvas.Top="27" x:Name="AngleText" RenderTransformOrigin="20.7,1.7" Content="{Binding AngleText}"/>
             <Controls:HoverButton x:Name="kinectButton" ImageSize="100" ImageSource="/Resources/RedButton-Hover.png"  ActiveImageSource="/Resources/RedButton-Active.png" IsTriggeredOnHover="True" Canvas.Left="485" Canvas.Top="43" TimeInterval="800"/>
-            <TextBlock Canvas.Left="237" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="424" x:Name="ButtonStatus" FontSize="32" RenderTransformOrigin="0.497,0.501"/>
+            <TextBlock Canvas.Left="237" TextWrapping="Wrap" Text="Press the Button!" Canvas.Top="424" x:Name="ButtonStatus" FontSize="32" RenderTransformOrigin="0.497,0.501"/>
             <Button Content="Save Flexion" Canvas.Left="90" Canvas.Top="112" Width="102" Command="{Binding SaveFlexionCommand}" Height="31"/>
             <Button Content="Save Extension" Canvas.Left="90" Canvas.Top="206" Width="116" Command="{Binding SaveExtensionCommand}" Height="37"/>
-            <local:ButtonView HorizontalAlignment="Left" VerticalAlignment="Top" Name="ButtonAttempt" Canvas.Left="430" Canvas.Top="270"/>
+            <local:ButtonView HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="ButtonAttempt" Canvas.Left="430" Canvas.Top="270"/>
+            <GridSplitter Height="26" Canvas.Left="104" Canvas.Top="161" Width="66"/>
         </Canvas>
     </Grid>
 </UserControl>

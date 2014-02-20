@@ -1,0 +1,12 @@
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\bin\Debug\CSKinectSkeletonApplication2.exe
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\bin\Debug\CSKinectSkeletonApplication2.pdb
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2.csprojResolveAssemblyReference.cache
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\MainWindow.baml
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\App.g.cs
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2_MarkupCompile.cache
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2.g.resources
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2.Properties.Resources.resources
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2.csproj.GenerateResource.Cache
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2.exe
+C:\Users\Lindsey\Documents\GitHub\myPT\CSKinectSkeletonApplication2\CSKinectSkeletonApplication2\obj\x86\Debug\CSKinectSkeletonApplication2.pdb

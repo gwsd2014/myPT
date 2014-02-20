@@ -19,7 +19,6 @@ namespace myPTv1._0
         {
             base.OnStartup(e);
 
-
             ApplicationView app = new ApplicationView();
             ApplicationViewModel context = new ApplicationViewModel();
             app.DataContext = context;

@@ -8,14 +8,17 @@ using System.Windows;
 
 //Mike Hodnick
 //kindohm
+
+//THis is super confusing magic, therefore I do not use it!
 namespace myPTv1._0
 {
+
     public class KinectViewModelLoader
     {
         static FlexionExtensionViewModel flexionExtensionViewModelStatic;
         static IkinectService kinectRuntime;
 
-         public KinectViewModelLoader()
+        public KinectViewModelLoader()
         {
             kinectRuntime = new KinectRuntime();
 
@@ -30,7 +33,7 @@ namespace myPTv1._0
                 kinectRuntime.Initialize();
             }
         }
-
+        /*
         public static FlexionExtensionViewModel FlexionExtensionViewModelStatic
         {
             get
@@ -50,7 +53,7 @@ namespace myPTv1._0
                 return flexionExtensionViewModelStatic;
             }
         }
-
+        */
         public static void Cleanup()
         {
             if (flexionExtensionViewModelStatic != null)

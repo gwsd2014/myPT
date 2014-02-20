@@ -1,0 +1,6 @@
+/*!CK:1007742409!*//*1386852686,178137879*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["t6myg"]); }
+
+__d("BlueBarMinWidth",["Arbiter","DOM","DOMDimensions","Event","Locale","Style","Vector","$","csx","queryThenMutateDOM"],function(a,b,c,d,e,f){var g=b('Arbiter'),h=b('DOM'),i=b('DOMDimensions'),j=b('Event'),k=b('Locale'),l=b('Style'),m=b('Vector'),n=b('$'),o=b('csx'),p=b('queryThenMutateDOM');f.init=function(){var q=n('pageHead'),r=h.find(q,"._59g8"),s,t=p.bind(null,function(){var u=i.getElementDimensions(q).width,v;if(k.isRTL()){v=-m.getElementPosition(q).x;}else v=m.getElementPosition(q).x+u-i.getViewportDimensions().width;if(v>0){var w=i.measureElementBox(q,'width',true);s=u-v-w+'px';}else s='';},function(){l.set(r,'width',s);},'BlueBarMinWidth');j.listen(window,'resize',t);g.subscribe(['LitestandSidebar/expand','LitestandSidebar/collapse'],t);t();};});
+__d("legacy:SettingsUsernameEditor",["SettingsUsernameEditor"],function(a,b,c,d){a.SettingsUsernameEditor=b('SettingsUsernameEditor');},3);

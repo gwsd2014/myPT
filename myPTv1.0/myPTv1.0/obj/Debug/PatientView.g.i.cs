@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Coding4Fun.Kinect.Wpf.Controls;
 using System;
 using System.Diagnostics;
 using System.Windows;

@@ -1,0 +1,16 @@
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\bin\Debug\Theme.WPF.exe.config
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Theme.WPF.csprojResolveAssemblyReference.cache
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Dark\MetroDark.MSControls.Core.Implicit.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Dark\Styles.Shared.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Dark\Styles.WPF.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Dark\Theme.Colors.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Light\Metro.MSControls.Core.Implicit.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Light\Styles.Shared.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Light\Styles.WPF.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Themes\Metro\Light\Theme.Colors.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\App.baml
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\App.g.cs
+C:\Users\Lindsey\Dropbox\SeniorDesign\WPFTemplate\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Theme.WPF_MarkupCompile.cache
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\resources\Themes\freewpfsilverlightmetrothemes\Theme.WPF\bin\Debug\Theme.WPF.exe.config
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\resources\Themes\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Theme.WPF.csprojResolveAssemblyReference.cache
+C:\Users\Lindsey\Documents\GitHub\myPT\myPTv1.0\myPTv1.0\resources\Themes\freewpfsilverlightmetrothemes\Theme.WPF\obj\Debug\Theme.WPF.csprojFakesResolveAssemblyReference.cache
