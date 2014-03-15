@@ -1,5 +1,4 @@
 #include <GL/freeglut.h>
-#include "Simple OpenGL Image Library\src\SOIL.h"
 #include <iostream>
 
 const unsigned int backgroundTexID = 1;

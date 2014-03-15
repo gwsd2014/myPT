@@ -12,6 +12,15 @@
     <ClInclude Include="..\common\TextureManager.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="Kinect.h" />
+    <ClInclude Include="DotObject.h" />
+    <ClInclude Include="vertex3.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameDotSpot.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp" />
@@ -21,6 +30,9 @@
     <ClCompile Include="..\common\TextureManager.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="GameDotSpot.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\DotSpotRoom-01.jpg" />
