@@ -21,6 +21,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="InteractionClient.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp" />

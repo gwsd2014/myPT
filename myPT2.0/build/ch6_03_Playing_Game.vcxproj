@@ -51,10 +51,14 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ch6_03_Playing_Game</TargetName>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(KINECT_TOOLKIT_DIR)inc;..\NuiSensorChooser;$(KINECTSDK10_DIR)inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)$(Configuration);$(KINECT_TOOLKIT_DIR)lib\x86;$(KINECTSDK10_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EIGENDIR)\;..\include;$(KINECTSDK10_DIR)\inc;$(FTSDK_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(KINECT_TOOLKIT_DIR)inc;$(EIGENDIR)\;..\include;$(KINECTSDK10_DIR)\inc;$(FTSDK_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -70,9 +74,9 @@
       <AdditionalIncludeDirectories>..\include;$(KINECTSDK10_DIR)\inc;$(FTSDK_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;FreeImage.lib;Kinect10.lib;FaceTrackLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;FreeImage.lib;Kinect10.lib;FaceTrackLib.lib;KinectInteraction180_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DotSpot_d.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\lib;$(KINECTSDK10_DIR)\lib\x86;$(FTSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\lib;C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib\amd64;C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib;$(KINECTSDK10_DIR)\lib\x86;$(FTSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDataBaseFileName>$(OutDir)ch6_03_Playing_Game_d.pdb</ProgramDataBaseFileName>
@@ -119,6 +123,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDotSpot.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="InteractionClient.h" />
     <ClInclude Include="Kinect.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />

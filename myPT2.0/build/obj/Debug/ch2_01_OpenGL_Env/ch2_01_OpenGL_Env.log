@@ -1,4 +1,4 @@
-﻿Build started 3/3/2014 11:24:37 AM.
+﻿Build started 3/15/2014 3:50:52 PM.
      1>Project "C:\Users\Lindsey\Documents\GitHub\myPT\myPT2.0\build\ch2_01_OpenGL_Env.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\include /I"C:\Program Files\Microsoft SDKs\Kinect\v1.8\\inc" /I"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\\inc" /ZI /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"obj\Debug\ch2_01_OpenGL_Env\\" /Fd"obj\Debug\ch2_01_OpenGL_Env\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\ch2_01.cpp
@@ -10,4 +10,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:07.75
+Time Elapsed 00:00:01.50
