@@ -64,8 +64,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
@@ -76,7 +75,7 @@
     <Link>
       <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;FreeImage.lib;Kinect10.lib;FaceTrackLib.lib;KinectInteraction180_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DotSpot_d.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\lib;C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib\amd64;C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib;$(KINECTSDK10_DIR)\lib\x86;$(FTSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(KINECTSDK10_DIR)\lib;..\lib;C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib\amd64;C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib;$(FTSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDataBaseFileName>$(OutDir)ch6_03_Playing_Game_d.pdb</ProgramDataBaseFileName>

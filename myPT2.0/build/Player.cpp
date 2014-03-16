@@ -159,6 +159,5 @@ bool Player::heldButton(float percentX, float percentY){
 			}
 		}
 		*/
-	}
 	return false;
 }

@@ -1,6 +1,5 @@
 #include <GL/freeglut.h>
 #include <MSHTML.h>
-#include <NuiApi.h>
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -14,8 +13,9 @@
 #include "build\GameDotSpot.h"
 // frame index
 int g_frameIndex = 0;
-Kinect kinect;
-Game *game;
+Player* player = new Player();
+Kinect kinect = Kinect(player);
+Game *game = new GameDotSpot(player);
 
 
 float randomValue( float min, float max )
@@ -96,8 +96,6 @@ int main( int argc, char** argv )
     glutKeyboardFunc( keyEvents );
 	glutTimerFunc( 16, timer, 0 );
 
-	kinect = Kinect();
-	game = new GameDotSpot(kinect.player);
     glutMainLoop();
     
     kinect.destroy();

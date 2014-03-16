@@ -14,8 +14,7 @@ public:
 	INuiSensor* context;
 	Player* player;
 	INuiInteractionStream* interactionStream;	//do I need both?
-	InteractionClient client;
-
+	
 	bool initializeKinect()
 	{
 		int numKinects = 0;
@@ -62,7 +61,7 @@ public:
 		{
 			std::cout << "Unable to start tracking skeleton." << std::endl;
 			return false;
-		}	
+		}
 
 		//initialiaze interaction stream
 		hr = NuiCreateInteractionStream(context, (INuiInteractionClient*)&player->interactionClient, &interactionStream);
@@ -104,11 +103,11 @@ public:
 		colorStreamHandle = NULL;
 		depthStreamHandle = NULL;
 		interactionStreamHandle = NULL;
+		this->player = playerPtr;
 		if(!initializeKinect())
 			printf("Kinect failed to initialize\n");
 		//this->player = playerPtr;
 		//this is dangerous!!
-		this->player = playerPtr;
 	}
 
 	void updateSkeletonData( NUI_SKELETON_DATA& data )
@@ -149,9 +148,8 @@ public:
 		player->guessGesture( 1, (yMin<player->rightHandTrails.back().gety() && player->rightHandTrails.back().getz()<zMax) );
 	}
 
-	void updateImageFrame( NUI_IMAGE_FRAME& imageFrame )
+	void updateImageFrame( NUI_IMAGE_FRAME& imageFrame, INuiFrameTexture* nuiTexture )
 	{
-		INuiFrameTexture* nuiTexture = imageFrame.pFrameTexture;
 		NUI_LOCKED_RECT lockedRect;
 		nuiTexture->LockRect( 0, &lockedRect, NULL, 0 );
 		if ( lockedRect.Pitch!=NULL )
@@ -193,69 +191,22 @@ public:
 
 	void updateInteraction(NUI_INTERACTION_FRAME& interactionFrame){
 		//update Player data
+		player->curUserInfo =interactionFrame.UserInfos[0];
 		
-		int i = 0;
-		for(int ii = 0; ii < NUI_SKELETON_COUNT; ii++)
-			{
-				player->curUserInfo = interactionFrame.UserInfos[ii];
-				NUI_USER_INFO user = interactionFrame.UserInfos[ii];
-				if (user.SkeletonTrackingId != 0)
-				{
-					for(int j = 0; j < NUI_USER_HANDPOINTER_COUNT; j++)
-					{
-						NUI_HANDPOINTER_INFO hand = user.HandPointerInfos[j];
-						NUI_HANDPOINTER_STATE state  = (NUI_HANDPOINTER_STATE)hand.State;
-
-						//if(state & NUI_HANDPOINTER_STATE_INTERACTIVE)
-						//	//cout << "Interactive: " << hand.X << " " << hand.Y <<endl;
-						//if(state & NUI_HANDPOINTER_STATE_PRESSED)
-						//	OutputDebugString(L"Pressed Button");
-						if (i>1) 
-							return;
-						if(hand.State != NUI_HANDPOINTER_STATE_NOT_TRACKED && hand.HandEventType>0)
-						{
-							//if(m_pInteractionStreamFunction != NULL)
-							//	m_pInteractionStreamFunction(hand);
-							printf("handpointer=");
-							printf( "%d---------hand:",j);
-							if (hand.HandType == NUI_HAND_TYPE_LEFT)
-								printf("left");
-							if (hand.HandType == NUI_HAND_TYPE_RIGHT)
-								printf("right");
-							printf( "----- event: ");
-
-							if (hand.HandEventType == NUI_HAND_EVENT_TYPE_GRIP)
-								printf( "grip");
-							if (hand.HandEventType == NUI_HAND_EVENT_TYPE_GRIPRELEASE)
-								printf("release");
-							printf("\n");
-						}
-						if(hand.State != NUI_HANDPOINTER_STATE_NOT_TRACKED)
-						{
-							if (hand.HandType == NUI_HAND_TYPE_LEFT)
-							{
-								//handLeftEvent[i] = hand.HandEventType;
-							}
-							if (hand.HandType == NUI_HAND_TYPE_RIGHT)
-							{
-								//handRightEvent[i] = hand.HandEventType;
-
-							}
-						}
-					}
-					i += 1;
-				}
-		}
 	}
 
 	void update(){
 		//Update Kinect Skeleton Depth overlay
 		NUI_IMAGE_FRAME depthFrame;
 		HRESULT hr = context->NuiImageStreamGetNextFrame( depthStreamHandle, 0, &depthFrame );
-		if ( SUCCEEDED(hr) )
-		{
-			updateImageFrame( depthFrame );
-			context->NuiImageStreamReleaseFrame( depthStreamHandle, &depthFrame );
+		if(SUCCEEDED(hr)){
+			INuiFrameTexture* nuiTexture = depthFrame.pFrameTexture;
+			hr = context->NuiImageFrameGetDepthImagePixelFrameTexture(depthStreamHandle, &depthFrame, nullptr, &nuiTexture);
+			if ( SUCCEEDED(hr) )
+			{
+				updateImageFrame( depthFrame, nuiTexture);
+				context->NuiImageStreamReleaseFrame( depthStreamHandle, &depthFrame );
+			}
 		}
 
 		

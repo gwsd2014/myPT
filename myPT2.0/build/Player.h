@@ -11,7 +11,6 @@
 
 class Player{
 	public:
-		TextureObject* playerDepthTexture;
 		unsigned int holdGestureCount[2];
 		unsigned int swipeGestureCount[2];
 		GLfloat trailColors[20][4];
@@ -21,6 +20,8 @@ class Player{
 		std::vector<vertex3> rightHandTrails;
 		InteractionClient interactionClient;
 		NUI_USER_INFO curUserInfo;
+
+		TextureObject* playerDepthTexture;
 
 	void init();
 
