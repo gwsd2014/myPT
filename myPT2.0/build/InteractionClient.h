@@ -2,7 +2,7 @@
 #define _INTERACTIONCLIENT_H_
 
 #include <Wincodec.h>
-#include <windows.h>
+//#include <windows.h>
 #include <NuiApi.h>
 #include <KinectInteraction.h>
 

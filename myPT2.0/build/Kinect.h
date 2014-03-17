@@ -227,7 +227,7 @@ public:
 		}
 
 		frameTexture->UnlockRect(0);
-		//context->NuiImageStreamReleaseFrame( depthStreamHandle, &depthFrame );
+		context->NuiImageStreamReleaseFrame( depthStreamHandle, &depthFrame );
 	}
 
 	void ProcessSkeleton(){
@@ -264,6 +264,9 @@ public:
 		if (SUCCEEDED(hr)){
 			updateInteraction(interactionFrame);
 		}
+
+		NUI_USER_INFO interactionInfo = interactionFrame.UserInfos[0];
+		printf("Left hand at %f, %f, %f", interactionInfo.HandPointerInfos[0].RawX,interactionInfo.HandPointerInfos[0].RawY, interactionInfo.HandPointerInfos[0].RawZ );
 	}
 
 	void update(){
