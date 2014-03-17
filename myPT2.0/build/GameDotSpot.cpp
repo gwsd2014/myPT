@@ -165,7 +165,7 @@ void GameDotSpot::shuffleDots(){
 
 
 	glRasterPos2f( 0.01f, 0.01f );
-	glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );		//WHITE TEXT
+	glColor4f( 0.0f, 0.0f, 0.0f, 0.0f );		//Black TEXT
 	glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
 
 }

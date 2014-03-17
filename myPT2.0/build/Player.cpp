@@ -34,14 +34,12 @@ void Player::render(){
 
 
 	glEnable( GL_BLEND );
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthMask(GL_TRUE);
-	//glDepthFunc(GL_LEQUAL);	
-	//glDepthRange(0.0f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LEQUAL);	
+	glDepthRange(0.0f, 1.0f);
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 	glTranslatef( 0.0f, 0.0f, 0.1f );
-
-	//Player::playerDepthTexture = createTexture(640, 480, GL_LUMINANCE_ALPHA, 2);
 
 	glBindTexture( GL_TEXTURE_2D, playerDepthTexture->id );
 
