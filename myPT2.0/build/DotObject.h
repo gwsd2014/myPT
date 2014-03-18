@@ -18,10 +18,10 @@ public:
 	bool tapped;
 	int timer;
 	Color dcolor;
-	unsigned int objectTextureID;	//will also be able to take care of position
+	GLuint objectTextureID;	//will also be able to take care of position
 
 
-    DotObject( unsigned int id, GLfloat s, GLfloat posx, GLfloat posy, 
+    DotObject( GLuint id, GLfloat s, GLfloat posx, GLfloat posy, 
                  GLfloat tx=0.0f, GLfloat ty=0.0f, GLfloat tw=1.0f, GLfloat th=1.0f)
     {
         size=s;
@@ -76,7 +76,7 @@ public:
         glPushMatrix();
 			glTranslatef( position.getx(), position.gety(), position.getz() );
 			TextureManager::Inst()->BindTexture( objectTextureID );
-			printf("Binding Fruit object with texture %d\n", objectTextureID);
+			//printf("Binding Fruit object with texture %d\n", objectTextureID);
 			drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
         glPopMatrix();
 

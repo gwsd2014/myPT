@@ -19,7 +19,7 @@ class Player{
 		std::vector<vertex3> leftHandTrails;
 		std::vector<vertex3> rightHandTrails;
 		InteractionClient interactionClient;
-		NUI_USER_INFO curUserInfo;
+		NUI_USER_INFO curUserInfo;		//holds important information about hands
 
 		TextureObject* playerDepthTexture;
 

@@ -10,16 +10,16 @@ class Game{
 public:
 	int score;
 	int lives;
-	unsigned int gameOverTexID;
-	unsigned int backgroundTexID;
+	GLuint gameOverTexID;
+	GLuint backgroundTexID;
 	int difficulty;
 	vector<Button> buttons;
 
 	Game(){
 		score = 0;
 		lives = 100;
-		gameOverTexID = 6;
-		backgroundTexID = 1;
+		glGenTextures(1, &gameOverTexID);
+		glGenTextures(1, &backgroundTexID);
 		//CREATE EXIT AND RESTART BUTTONS!
 		buttons.push_back(Button(0.9f, 0.9f));
 	}

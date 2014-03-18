@@ -30,21 +30,19 @@ void GameDotSpot::init(){
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	}
 }
-
+//dangerous! don't use!
 GameDotSpot::GameDotSpot(): Game(){
-	hotDonut = 1;
-	donuts.push_back(DotObject(1, 0.1f, 0.25f, 0.45f));
-	donuts.push_back(DotObject(2, 0.1f,  0.45f, 0.45f));
-	donuts.push_back(DotObject(0, 0.1f,  0.66f, 0.45f));
-	init();
+//empty for danger reasons!
 }
 
 GameDotSpot::GameDotSpot(Player* playerPtr): Game(){
 	player = playerPtr;
 	hotDonut = 1;
-	donuts.push_back(DotObject(1, 0.1f,  0.25f, 0.45f));
-	donuts.push_back(DotObject(2, 0.1f,  0.45f, 0.45f));
-	donuts.push_back(DotObject(0, 0.1f,  0.66f, 0.45f));
+	GLuint dotNamesArray[3];
+	glGenTextures(3, dotNamesArray);
+	donuts.push_back(DotObject(dotNamesArray[0], 0.1f, 0.25f, 0.45f));
+	donuts.push_back(DotObject(dotNamesArray[1],2, 0.1f,  0.45f, 0.45f));
+	donuts.push_back(DotObject(dotNamesArray[2], 0.1f,  0.66f, 0.45f));
 	init();
 }
 
@@ -143,7 +141,7 @@ void GameDotSpot::shuffleDots(){
 		TextureManager::Inst()->BindTexture( gameOverTexID );
 	}
 	else{ 
-		printf("Binding background texture\n");
+		//printf("Binding background texture\n");
 		TextureManager::Inst()->BindTexture( backgroundTexID );	//or keep it the same
 	}
 	drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );

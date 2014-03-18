@@ -130,11 +130,33 @@ void Player::guessGesture( unsigned int index, bool inRange )
 	}
 }
 
+void mapToScreenCoordinates(){
+	//in order to draw hand images
+}
 
 //TODO make this code look less ugly
 bool Player::heldButton(float percentX, float percentY){
 	NUI_INTERACTION_INFO interaction;
-	this->interactionClient.GetInteractionInfoAtLocation(curUserInfo.SkeletonTrackingId, curUserInfo.HandPointerInfos->HandType, percentX, percentY, &interaction);
+
+	//left Hand
+	this->interactionClient.GetInteractionInfoAtLocation(curUserInfo.SkeletonTrackingId, curUserInfo.HandPointerInfos[0].HandType, percentX, percentY, &interaction);
+	NUI_HANDPOINTER_INFO leftHand = curUserInfo.HandPointerInfos[0];
+	
+	this->interactionClient.GetInteractionInfoAtLocation(curUserInfo.SkeletonTrackingId, curUserInfo.HandPointerInfos[1].HandType, percentX, percentY, &interaction);
+	NUI_HANDPOINTER_INFO rightHand = curUserInfo.HandPointerInfos[1];	//will this change depending on client call?
+
+	//reasonable?
+
+	if((rightHand.State & NUI_HANDPOINTER_STATE_TRACKED) && (rightHand.State & NUI_HANDPOINTER_STATE_PRESSED)){
+		//hand has been pressed?
+		printf("Right Hand pressed\n");
+	}
+
+	if((leftHand.State & NUI_HANDPOINTER_STATE_TRACKED) && (leftHand.State & NUI_HANDPOINTER_STATE_PRESSED)){
+		//hand has been pressed?
+		printf("left Hand pressed\n");
+	}
+
 
 	/*
 	bool held = false;

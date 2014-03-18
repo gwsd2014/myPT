@@ -192,11 +192,6 @@ public:
 		//nuiTexture->Release();	//added, do i need this?
 	}
 
-	void updateInteraction(NUI_INTERACTION_FRAME& interactionFrame){
-		//update Player data
-		player->curUserInfo =interactionFrame.UserInfos[0];
-		
-	}
 
 	void ProcessDepth(){
 		//Update Kinect Skeleton Depth overlay
@@ -262,11 +257,13 @@ public:
 		NUI_INTERACTION_FRAME interactionFrame;
 		HRESULT hr = interactionStream->GetNextFrame(0, &interactionFrame);
 		if (SUCCEEDED(hr)){
-			updateInteraction(interactionFrame);
+			//update Player data, makes assumption that skeleton is at index 0 of "user's visible" array
+			player->curUserInfo =interactionFrame.UserInfos[0];
 		}
 
-		NUI_USER_INFO interactionInfo = interactionFrame.UserInfos[0];
-		printf("Left hand at %f, %f, %f", interactionInfo.HandPointerInfos[0].RawX,interactionInfo.HandPointerInfos[0].RawY, interactionInfo.HandPointerInfos[0].RawZ );
+		//for debugging
+		//NUI_USER_INFO interactionInfo = interactionFrame.UserInfos[0];
+		//printf("Left hand at %f, %f, %f", interactionInfo.HandPointerInfos[0].RawX,interactionInfo.HandPointerInfos[0].RawY, interactionInfo.HandPointerInfos[0].RawZ );
 	}
 
 	void update(){
