@@ -10,8 +10,8 @@ class Game{
 public:
 	int score;
 	int lives;
-	GLuint gameOverTexID;
-	GLuint backgroundTexID;
+	unsigned int gameOverTexID;
+	unsigned int backgroundTexID;
 	int difficulty;
 	vector<Button> buttons;
 
@@ -20,7 +20,7 @@ public:
 		score = 0;
 		lives = 100;
 		gameOverTexID = 9;
-		backgroundTexID = 1;
+		backgroundTexID = 8;
 		//CREATE EXIT AND RESTART BUTTONS!
 		buttons.push_back(Button(0.9f, 0.9f));
 	}

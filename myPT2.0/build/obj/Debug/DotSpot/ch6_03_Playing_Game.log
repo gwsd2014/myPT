@@ -1,8 +1,11 @@
-﻿Build started 3/18/2014 9:23:35 PM.
+﻿Build started 3/18/2014 11:05:28 PM.
      1>Project "C:\Users\Lindsey\Documents\GitHub\myPT\myPT2.0\build\ch6_03_Playing_Game.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\inc" /IE:\Eigen\ /I..\include /I"C:\Program Files\Microsoft SDKs\Kinect\v1.8\\inc" /I"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\\inc" /ZI /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\obj\Debug\DotSpot\\" /Fd".\obj\Debug\DotSpot\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\common\TextureManager.cpp
-         TextureManager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\inc" /IE:\Eigen\ /I..\include /I"C:\Program Files\Microsoft SDKs\Kinect\v1.8\\inc" /I"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\\inc" /ZI /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\obj\Debug\DotSpot\\" /Fd".\obj\Debug\DotSpot\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\ch6_03.cpp GameDotSpot.cpp
+         ch6_03.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         GameDotSpot.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\bin\DotSpot_d.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\v1.8\\lib" /LIBPATH:..\lib /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib\amd64" /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\Lib" /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\\Lib\x86" opengl32.lib glu32.lib freeglut.lib FreeImage.lib Kinect10.lib FaceTrackLib.lib KinectInteraction180_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\bin\DotSpot_d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\bin\DotSpot_d.lib" /MACHINE:X86 .\obj\Debug\DotSpot\ch6_03.obj
          .\obj\Debug\DotSpot\GLUtilities.obj
@@ -15,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.90
+Time Elapsed 00:00:06.18

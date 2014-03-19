@@ -18,7 +18,7 @@ public:
 	bool tapped;
 	int timer;
 	Color dcolor;
-	GLuint objectTextureID;	//will also be able to take care of position
+	unsigned int objectTextureID;	//will also be able to take care of position
 
 	//donuts.push_back(DotObject(dotNamesArray[0], 0.1f, 0.25f, 0.45f));
     DotObject( GLuint id, GLfloat s, GLfloat posx, GLfloat posy, 

@@ -39,10 +39,9 @@ GameDotSpot::GameDotSpot(Player* playerPtr): Game(){
 	player = playerPtr;
 	hotDonut = 1;
 	GLuint dotNamesArray[3];
-	
-	donuts.push_back(DotObject(2, 0.1f, 0.25f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
-	donuts.push_back(DotObject(3, 0.1f,  0.45f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
-	donuts.push_back(DotObject(4, 0.1f,  0.66f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
+	donuts.push_back(DotObject(0, 0.1f, 0.25f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
+	donuts.push_back(DotObject(1, 0.1f,  0.45f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
+	donuts.push_back(DotObject(2, 0.1f,  0.66f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
 	init();
 }
 
@@ -147,19 +146,18 @@ void GameDotSpot::shuffleDots(){
 	}
 	drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
 
-	//player->render();
+	player->render();
 
 	drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
 
 	// Blend with dot objects does order matter?
-	//for ( unsigned int i=0; i<donuts.size(); ++i ){
-	//	donuts[i].render();
-	//	printf("i = %d", i);
-	//}
+	for ( unsigned int i=0; i<donuts.size(); ++i ){
+		donuts[i].render();
+		//printf("i = %d", i);
+	}
 
 	glDisable( GL_TEXTURE_2D );
-	player->renderHandTrails();
-	
+	player->renderHandTrails();	
 
 	// Draw HUD text
 	std::stringstream ss;
@@ -167,6 +165,6 @@ void GameDotSpot::shuffleDots(){
 
 
 	//glRasterPos2f( 0.01f, 0.01f );
-	//glColor4f( 1.0f, 1.0f, 0.0f, 0.0f );		//Black TEXT
+	//glColor4f( 0.0f, 1.0f, 0.0f, 0.5f );		//Black TEXT
 	//glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
 }
