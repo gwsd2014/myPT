@@ -16,10 +16,11 @@ public:
 	vector<Button> buttons;
 
 	Game(){
+		printf("Default constructor of game visited");
 		score = 0;
 		lives = 100;
-		glGenTextures(1, &gameOverTexID);
-		glGenTextures(1, &backgroundTexID);
+		gameOverTexID = 9;
+		backgroundTexID = 1;
 		//CREATE EXIT AND RESTART BUTTONS!
 		buttons.push_back(Button(0.9f, 0.9f));
 	}

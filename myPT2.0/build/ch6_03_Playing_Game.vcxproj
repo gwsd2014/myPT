@@ -122,7 +122,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDotSpot.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="InteractionClient.h" />
     <ClInclude Include="Kinect.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />

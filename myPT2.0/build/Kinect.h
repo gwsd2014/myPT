@@ -4,21 +4,20 @@
 #include <iostream>
 #include "Player.h"
 
+
 class Kinect{
 private:
-	//Events:
+	//Event Handles
 	HANDLE nextDepthFrameEvent;
 	HANDLE nextSkeletonEvent;
-	HANDLE nextInteractionEvent;
 
-	//Handles
+	//Stream Handles
 	HANDLE colorStreamHandle;
 	HANDLE depthStreamHandle;
 public:
 	NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 	INuiSensor* context;
 	Player* player;
-	INuiInteractionStream* interactionStream;	//do I need both?
 	
 	bool initializeKinect()
 	{
@@ -45,8 +44,6 @@ public:
 			std::cout << "Failed to intialize Kinect: " << std::hex << (long)hr << std::dec << std::endl;
 			return false;
 		}
-
-
     
 		hr = context->NuiImageStreamOpen( NUI_IMAGE_TYPE_COLOR, NUI_IMAGE_RESOLUTION_640x480, 0, 2, NULL, &colorStreamHandle );
 		if ( FAILED(hr) )
@@ -57,7 +54,7 @@ public:
 
 		nextDepthFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 		hr = context->NuiImageStreamOpen( NUI_IMAGE_TYPE_DEPTH_AND_PLAYER_INDEX, NUI_IMAGE_RESOLUTION_640x480,
-			0, 2, nextDepthFrameEvent, &depthStreamHandle );
+			0, 2, NULL, &depthStreamHandle );
 		if ( FAILED(hr) )
 		{
 			std::cout << "Unable to create depth stream: " << std::hex << (long)hr << std::dec << std::endl;
@@ -65,32 +62,17 @@ public:
 		}
 
 		nextSkeletonEvent = CreateEvent( NULL, TRUE, FALSE, NULL );
-		hr = context->NuiSkeletonTrackingEnable( nextSkeletonEvent, 0 );
+		hr = context->NuiSkeletonTrackingEnable( NULL, 0 );
 		if ( FAILED(hr) )
 		{
 			std::cout << "Unable to start tracking skeleton." << std::endl;
 			return false;
 		}
-
-		//initialiaze interaction stream
-		hr = NuiCreateInteractionStream(context, (INuiInteractionClient*)&player->interactionClient, &interactionStream);
-		if(FAILED(hr)){
-			std::cout << "Failed to create interaction stream." << std::endl;
-			return false;
-		}
-
-		nextInteractionEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-		hr = interactionStream->Enable(nextInteractionEvent);
-		if(FAILED(hr)){
-			std::cout << "Unable to start tracking hand events." << std::endl;
-			return false;
-		}
-
-			smoothParams.fCorrection = 0.5f;
-			smoothParams.fJitterRadius = 1.0f;
-			smoothParams.fMaxDeviationRadius = 0.5f;
-			smoothParams.fPrediction = 0.4f;
-			smoothParams.fSmoothing = 0.2f;
+		smoothParams.fCorrection = 0.5f;
+		smoothParams.fJitterRadius = 1.0f;
+		smoothParams.fMaxDeviationRadius = 0.5f;
+		smoothParams.fPrediction = 0.4f;
+		smoothParams.fSmoothing = 0.2f;
 		return true;
 	}
 
@@ -157,7 +139,7 @@ public:
 
 	void updateImageFrame( NUI_IMAGE_FRAME& imageFrame)
 	{
-		INuiFrameTexture* nuiTexture = imageFrame.pFrameTexture;
+		 INuiFrameTexture* nuiTexture = imageFrame.pFrameTexture;
 		NUI_LOCKED_RECT lockedRect;
 		nuiTexture->LockRect( 0, &lockedRect, NULL, 0 );
 		if ( lockedRect.Pitch!=NULL )
@@ -189,7 +171,6 @@ public:
 						  0, tobj->imageFormat, GL_UNSIGNED_BYTE, tobj->bits );
 		}
 		nuiTexture->UnlockRect( 0 );
-		//nuiTexture->Release();	//added, do i need this?
 	}
 
 
@@ -199,30 +180,8 @@ public:
 		HRESULT hr = context->NuiImageStreamGetNextFrame( depthStreamHandle, 0, &depthFrame );
 		if(SUCCEEDED(hr)){
 			updateImageFrame( depthFrame);
+			context->NuiImageStreamReleaseFrame( depthStreamHandle, &depthFrame );
 		}
-
-		INuiFrameTexture* frameTexture = 0;
-		BOOL nearMode = false;
-		hr = context->NuiImageFrameGetDepthImagePixelFrameTexture(depthStreamHandle, &depthFrame, &nearMode, &frameTexture);
-		if(FAILED(hr)){
-			//do something
-		}
-		NUI_LOCKED_RECT depthData = {0};
-		frameTexture->LockRect(0, &depthData, NULL, 0);
-
-		std::vector<unsigned char> buffer;
-		buffer.resize( depthData.size );
-		if ( depthData.Pitch ) {
-		  memcpy( &buffer[0], depthData.pBits, buffer.size() );
-		}
-
-		hr = interactionStream->ProcessDepth(buffer.size(), &buffer[0], depthFrame.liTimeStamp);
-		if(FAILED(hr)){
-			std::cout << "Failed to Process Depth: " << std::hex << (long)hr << std::dec << std::endl;
-		}
-
-		frameTexture->UnlockRect(0);
-		context->NuiImageStreamReleaseFrame( depthStreamHandle, &depthFrame );
 	}
 
 	void ProcessSkeleton(){
@@ -240,30 +199,13 @@ public:
 					updateSkeletonData( data );
 
 					//get accelerometer data
-					Vector4 v = {0};
-					context->NuiAccelerometerGetCurrentReading(&v);
+					//Vector4 v = {0};
+					//context->NuiAccelerometerGetCurrentReading(&v);
 
-					hr = interactionStream->ProcessSkeleton(NUI_SKELETON_COUNT, skeletonFrame.SkeletonData, &v, skeletonFrame.liTimeStamp);
-					if(FAILED(hr)){
-						std::cout << "Failed to Process Skeleton: " << std::hex << (long)hr << std::dec << std::endl;
-					}
 					break;
 				}	
 			}		
 		}
-	}
-
-	void ProcessInteraction(){
-		NUI_INTERACTION_FRAME interactionFrame;
-		HRESULT hr = interactionStream->GetNextFrame(0, &interactionFrame);
-		if (SUCCEEDED(hr)){
-			//update Player data, makes assumption that skeleton is at index 0 of "user's visible" array
-			player->curUserInfo =interactionFrame.UserInfos[0];
-		}
-
-		//for debugging
-		//NUI_USER_INFO interactionInfo = interactionFrame.UserInfos[0];
-		//printf("Left hand at %f, %f, %f", interactionInfo.HandPointerInfos[0].RawX,interactionInfo.HandPointerInfos[0].RawY, interactionInfo.HandPointerInfos[0].RawZ );
 	}
 
 	void update(){
@@ -271,19 +213,17 @@ public:
 		{
 			return;
 		}
-		if (WAIT_OBJECT_0 == WaitForSingleObject(nextDepthFrameEvent, 0))
-		{
+		//if (WAIT_OBJECT_0 == WaitForSingleObject(nextDepthFrameEvent, 0))
+		//{
 			ProcessDepth();
-		}
+		//}
 
-		if ( WAIT_OBJECT_0 == WaitForSingleObject(nextSkeletonEvent, 0) )
-		{
+		//if ( WAIT_OBJECT_0 == WaitForSingleObject(nextSkeletonEvent, 0) )
+		//{
 			ProcessSkeleton();
-		}
-		if ( WAIT_OBJECT_0 == WaitForSingleObject(nextInteractionEvent, 0) )
-		{
-			ProcessInteraction();
-		}
+		//}
+
+		//glutPostRedisplay();
 	}
 
 	bool destroy(){

@@ -22,7 +22,6 @@ void Player::init(){
 
 Player::Player(){
 	playerDepthTexture = NULL;
-	interactionClient = InteractionClient();		//necessary?
 	init();
 }
 
@@ -33,11 +32,11 @@ void Player::destroy(){
 void Player::render(){
 
 
-	glEnable( GL_BLEND );
-	glEnable(GL_DEPTH_TEST);
-	glDepthMask(GL_TRUE);
-	glDepthFunc(GL_LEQUAL);	
-	glDepthRange(0.0f, 1.0f);
+	glEnable( GL_BLEND );			//disabled in renderHandTrails
+	//glEnable(GL_DEPTH_TEST);
+	//glDepthMask(GL_TRUE);
+	//glDepthFunc(GL_LEQUAL);	
+	//glDepthRange(0.0f, 1.0f);
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 	glTranslatef( 0.0f, 0.0f, 0.1f );
 
@@ -47,7 +46,6 @@ void Player::render(){
 
 void Player::renderHandTrails(){
 	// Blend with hand trails
-	glDisable( GL_TEXTURE_2D );
 	glLineWidth( 50.0f );
 
 	VertexData leftHandData = { &(leftHandTrails[0].x()), NULL, &(trailColors[0][0]), NULL };
@@ -55,6 +53,7 @@ void Player::renderHandTrails(){
 
 	VertexData rightHandData = { &(rightHandTrails[0].x()), NULL, &(trailColors[0][0]), NULL };
 	drawSimpleMesh( WITH_POSITION|WITH_COLOR, rightHandTrails.size(), rightHandData, GL_LINE_STRIP );
+	glDisable( GL_BLEND );
 }
 
 
@@ -130,35 +129,8 @@ void Player::guessGesture( unsigned int index, bool inRange )
 	}
 }
 
-void mapToScreenCoordinates(){
-	//in order to draw hand images
-}
-
 //TODO make this code look less ugly
 bool Player::heldButton(float percentX, float percentY){
-	NUI_INTERACTION_INFO interaction;
-
-	//left Hand
-	this->interactionClient.GetInteractionInfoAtLocation(curUserInfo.SkeletonTrackingId, curUserInfo.HandPointerInfos[0].HandType, percentX, percentY, &interaction);
-	NUI_HANDPOINTER_INFO leftHand = curUserInfo.HandPointerInfos[0];
-	
-	this->interactionClient.GetInteractionInfoAtLocation(curUserInfo.SkeletonTrackingId, curUserInfo.HandPointerInfos[1].HandType, percentX, percentY, &interaction);
-	NUI_HANDPOINTER_INFO rightHand = curUserInfo.HandPointerInfos[1];	//will this change depending on client call?
-
-	//reasonable?
-
-	if((rightHand.State & NUI_HANDPOINTER_STATE_TRACKED) && (rightHand.State & NUI_HANDPOINTER_STATE_PRESSED)){
-		//hand has been pressed?
-		printf("Right Hand pressed\n");
-	}
-
-	if((leftHand.State & NUI_HANDPOINTER_STATE_TRACKED) && (leftHand.State & NUI_HANDPOINTER_STATE_PRESSED)){
-		//hand has been pressed?
-		printf("left Hand pressed\n");
-	}
-
-
-	/*
 	bool held = false;
 	if(holdGestureCount[0]>30 || holdGestureCount[1]>30){
 		held = true;
@@ -178,6 +150,6 @@ bool Player::heldButton(float percentX, float percentY){
 				return true;
 			}
 		}
-		*/
+	}
 	return false;
 }

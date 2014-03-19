@@ -6,7 +6,7 @@ void GameDotSpot::init(){
 			//Create background texture
 	if ( TextureManager::Inst()->LoadTexture("DotSpotRoom-01.jpg", backgroundTexID, GL_BGR_EXT) )
 	{
-		printf("Background Texture opened succesfullyl\n\n\n\n");
+		printf("Background Texture opened succesfully\n\n\n\n");
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	}
@@ -22,7 +22,7 @@ void GameDotSpot::init(){
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		}
 	}
-
+	
 	//create game over texture 
 	if ( TextureManager::Inst()->LoadTexture("FruitNinja6.jpg", gameOverTexID, GL_BGR_EXT) )
 	{
@@ -39,10 +39,10 @@ GameDotSpot::GameDotSpot(Player* playerPtr): Game(){
 	player = playerPtr;
 	hotDonut = 1;
 	GLuint dotNamesArray[3];
-	glGenTextures(3, dotNamesArray);
-	donuts.push_back(DotObject(dotNamesArray[0], 0.1f, 0.25f, 0.45f));
-	donuts.push_back(DotObject(dotNamesArray[1],2, 0.1f,  0.45f, 0.45f));
-	donuts.push_back(DotObject(dotNamesArray[2], 0.1f,  0.66f, 0.45f));
+	
+	donuts.push_back(DotObject(2, 0.1f, 0.25f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
+	donuts.push_back(DotObject(3, 0.1f,  0.45f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
+	donuts.push_back(DotObject(4, 0.1f,  0.66f, 0.45f, 0.0f, 0.0f, 0.5f, 0.5f));
 	init();
 }
 
@@ -138,32 +138,35 @@ void GameDotSpot::shuffleDots(){
 
 	//Replace background with game over texture
 	if (lives<=0 ){
-		TextureManager::Inst()->BindTexture( gameOverTexID );
+		if(!TextureManager::Inst()->BindTexture( gameOverTexID ))
+			printf("Game over texture failed");
 	}
 	else{ 
-		//printf("Binding background texture\n");
-		TextureManager::Inst()->BindTexture( backgroundTexID );	//or keep it the same
+		if(!TextureManager::Inst()->BindTexture( backgroundTexID ))	//or keep it the same
+		printf("Bkg texture failed");
 	}
 	drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
 
-	player->render();
+	//player->render();
 
 	drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
 
 	// Blend with dot objects does order matter?
-	for ( unsigned int i=0; i<donuts.size(); ++i )
-		donuts[i].render();
+	//for ( unsigned int i=0; i<donuts.size(); ++i ){
+	//	donuts[i].render();
+	//	printf("i = %d", i);
+	//}
 
+	glDisable( GL_TEXTURE_2D );
 	player->renderHandTrails();
-	glDisable( GL_BLEND );
+	
 
 	// Draw HUD text
 	std::stringstream ss;
 	ss << "Score: " << score << "  Life: " << (lives<0 ? 0 : lives);
 
 
-	glRasterPos2f( 0.01f, 0.01f );
-	glColor4f( 0.0f, 0.0f, 0.0f, 0.0f );		//Black TEXT
-	glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
-
+	//glRasterPos2f( 0.01f, 0.01f );
+	//glColor4f( 1.0f, 1.0f, 0.0f, 0.0f );		//Black TEXT
+	//glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
 }

@@ -43,7 +43,7 @@ void render()
     
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
- 
+	//printf("");
 	//switch statement here?
 	game->render();
     
@@ -74,7 +74,7 @@ void timer( int value ) {
 	//Which in turn determines difficulty
 	game->timer(g_frameIndex);
 	// render
-	glutPostRedisplay();
+	//glutPostRedisplay();
 
 	// reset timer
 	// 16 ms per frame ( about 60 frames per second )
@@ -86,7 +86,7 @@ int main( int argc, char** argv )
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH|GLUT_MULTISAMPLE );
     glutCreateWindow( "myPT" );
-    //glutFullScreen();
+   // glutFullScreen();
 	glutInitWindowSize( 500, 500 ); 
 	glutInitWindowPosition( 100, 100 );
     
