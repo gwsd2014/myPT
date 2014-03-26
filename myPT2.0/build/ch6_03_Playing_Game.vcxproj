@@ -43,7 +43,7 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\bin\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\obj\Debug\DotSpot</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\obj\Debug\DotSpot\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DotSpot_d</TargetName>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\bin\</OutDir>
@@ -54,7 +54,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;$(KINECTSDK10_DIR)\inc;$(FTSDK_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;$(EIGENDIR)\;$(KINECTSDK10_DIR)\inc;$(FTSDK_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -114,6 +114,8 @@
   <ItemGroup>
     <ClInclude Include="..\common\GLUtilities.h" />
     <ClInclude Include="..\common\TextureManager.h" />
+    <ClInclude Include="..\GestureManager.h" />
+    <ClInclude Include="DotObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp">
@@ -122,9 +124,7 @@
     </ClCompile>
     <ClCompile Include="..\common\TextureManager.cpp">
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\DotSpotRoom-01.jpg" />
+    <ClCompile Include="..\GestureManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

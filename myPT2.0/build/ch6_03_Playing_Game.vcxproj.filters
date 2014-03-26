@@ -12,6 +12,8 @@
     <ClInclude Include="..\common\TextureManager.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="DotObject.h" />
+    <ClInclude Include="..\GestureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp" />
@@ -21,8 +23,6 @@
     <ClCompile Include="..\common\TextureManager.cpp">
       <Filter>common</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\DotSpotRoom-01.jpg" />
+    <ClCompile Include="..\GestureManager.cpp" />
   </ItemGroup>
 </Project>

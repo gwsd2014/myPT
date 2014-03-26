@@ -1,45 +1,58 @@
 #include <GL/freeglut.h>
-#include <MSHTML.h>
-#include <NuiApi.h>
-#include <iostream>
-#include <sstream>
-#include <vector>
 #include "common/TextureManager.h"
 #include "common/GLUtilities.h"
+#include "vertex3.h"
+enum Color{red, green, blue};
 
 class DotObject
 {
 public:
-	    
-    GLfloat size;
-    GLfloat texOffset[4];
-    Vertex position;
-    Vertex velocity;
-    unsigned int objectID;
-    bool canSlice;
 
-    DotObject( unsigned int id, bool b, GLfloat s,
-                 GLfloat tx=0.0f, GLfloat ty=0.0f, GLfloat tw=1.0f, GLfloat th=1.0f )
+	DotObject(){
+		//deafault constructor
+	}
+	
+    DotObject( unsigned int id, GLfloat s, GLfloat posx, GLfloat posy, 
+                 GLfloat tx=0.0f, GLfloat ty=0.0f, GLfloat tw=1.0f, GLfloat th=1.0f)
     {
-        canSlice = b; size = s;
+        size=s;
         texOffset[0] = tx; texOffset[1] = ty;
         texOffset[2] = tx + tw; texOffset[3] = ty + th;
-        position.x = 0.0f; position.y = 0.0f; position.z = 0.0f;
-        velocity.x = 0.0f; velocity.y = 0.0f; velocity.z = 0.0f;
+        position.x() = posx; position.y() = posy; position.z() = 0.0f;
         objectID = id;
+		timer = 120;
     }
+
+	void setDotColor(Color color){
+		switch (color){
+			case red:
+				glColor3f(1,0,0);
+			break;
+			case green:
+				glColor3f(0,1,0);
+			break;
+			case blue:
+				glColor3f(0,0,1);
+			break;
+		}
+	}
+
+	void drawDot(){
+		setDotColor(dcolor);
+		glPushMatrix();
+		glTranslatef(position.x(), position.y(), 0.0);
+		glutSolidTorus(0.1, 0.3, 30,30);
+		glPopMatrix();
+	}
     
     void update()
     {
-        position.x += velocity.x;
-        position.y += velocity.y;
-        
-        const GLfloat gravity = -0.001f;
-        velocity.y += gravity;
+		//does not need to do anything.
     }
     
-    void render()
+    void render(const unsigned int* objectTexIDs)
     {
+		// Draws images from bitmap
         GLfloat vertices[][3] = {
             { 0.0f, 0.0f, 0.0f }, { size, 0.0f, 0.0f },
             { size, size, 0.0f }, { 0.0f, size, 0.0f }
@@ -50,10 +63,23 @@ public:
         };
         VertexData meshData = { &(vertices[0][0]), NULL, NULL, &(texcoords[0][0]) };
         
+
         glPushMatrix();
-        glTranslatef( position.x, position.y, position.z );
-        TextureManager::Inst()->BindTexture( objectTexIDs[objectID] );
-        drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
+			glTranslatef( position.x(), position.y(), position.z());
+			TextureManager::Inst()->BindTexture( objectTexIDs[objectID] );
+			drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
         glPopMatrix();
+
+		//drawDot();
     }
+
+    GLfloat texOffset[4];
+	GLfloat size;
+    vertex3 position;
+    unsigned int objectID;	//will also be able to take care of position
+    bool canTouch;
+	bool tapped;
+	int timer;
+	Color dcolor;
+
 };
