@@ -8,40 +8,35 @@
 #include "common/GLUtilities.h"
 #include "DotObject.h"
 #include "vertex3.h"
-#include "GestureManager.h"
+#include "DotSpot.h"
+#include "common/GestureManager.h"
+#include "Frame.h"
 
 INuiSensor* context = NULL;
 HANDLE colorStreamHandle = NULL;
 HANDLE depthStreamHandle = NULL;
 TextureObject* playerDepthTexture = NULL;
+Frame* currentScreen;
 
 NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 
-const unsigned int backgroundTexID = 1;
-//array containing texture id's for fruit images
-//watermelon, apple, mango and bomb
-const unsigned int objectTexIDs[7] = {2, 3, 4, 5, 7, 8, 9};
+//DotSpot etc.
+int numBackgrounds = 1;
+const static unsigned int backgroundTexIDs[1] = {8};
+//array containing texture id's for game images
+//apple, orange, orange, checkmark, red guide, green guide, blue guide
+int numObjects = 8;
+const static unsigned int objectTexIDs[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 const unsigned int gameOverTexID = 6;
-int score = 0, life = 100;
 
 // frame index
 int g_frameIndex = 0;
-
-//game globals
-bool hotDonutTouched;
-bool shuffled;
-bool leftHand; //true for left, false if right;
-
-int hotDonut;		//Location of the green donut
 
 float randomValue( float min, float max )
 {
     return (min + (float)rand()/(RAND_MAX+1.0f) * (max - min));
 }
 
-std::vector<DotObject> donuts;
-DotObject guide;	//originally set to blue
-DotObject checkMark;
 bool initializeKinect()
 {
 	NuiCameraElevationSetAngle(0);
@@ -147,61 +142,6 @@ void updateImageFrame( NUI_IMAGE_FRAME& imageFrame )
 	//-------------------------------------------------------------------------------//
 }
 
-void shuffleDots(){
-		//CHANGESTHE COLORS OF THE DONUTS!
-		//update which one is green!
-		hotDonutTouched = false;
-		hotDonut = rand() % 3;
-		if(rand() % 2 == 0) 
-			leftHand = true;
-		else 
-			leftHand = false;
-		printf("Hot donut is %d\n", hotDonut);
-		switch (hotDonut)
-		{
-			case 0:
-				donuts.at(0).dcolor = green;
-				donuts.at(1).dcolor = red;
-				donuts.at(2).dcolor = blue;
-				donuts.at(0).objectID = 0;
-				if(rand() %2 == 0){
-					donuts.at(1).objectID = 1;
-					donuts.at(2).objectID = 2;
-				}else{
-					donuts.at(1).objectID = 2;
-					donuts.at(2).objectID = 1;
-				}
-			break;
-			case 1:
-				donuts.at(1).dcolor = green;
-				donuts.at(0).dcolor = red;
-				donuts.at(2).dcolor = blue;
-				donuts.at(1).objectID = 0;
-				if(rand() %2 == 0){
-					donuts.at(0).objectID = 1;
-					donuts.at(2).objectID = 2;
-				}else{
-					donuts.at(0).objectID = 2;
-					donuts.at(2).objectID = 1;
-				}
-			break;
-			case 2:
-				//Set colors
-				donuts.at(0).dcolor = blue;
-				donuts.at(1).dcolor = red;
-				donuts.at(2).dcolor = green;
-				donuts.at(2).objectID = 0;
-				if(rand() %2 ==0 ){
-					donuts.at(0).objectID = 1;
-					donuts.at(1).objectID = 2;
-				}else{
-					donuts.at(0).objectID = 2;
-					donuts.at(1).objectID = 1;
-				}
-			break;
-		}
-		shuffled = true;
-}
 
 void updateSkeletonData( NUI_SKELETON_DATA& data )
 {
@@ -228,12 +168,12 @@ void updateSkeletonData( NUI_SKELETON_DATA& data )
         {
 			//pass data to gesture manager
 			GestureManager::Inst()->addLeftHandData(vertex);
-			if(leftHand) guide.position = vertex;
+			//if(leftHand) guide.position = vertex;
         }
         else if ( i==NUI_SKELETON_POSITION_HAND_RIGHT )
         {
 			GestureManager::Inst()->addRightHandData(vertex);
-			if(!leftHand) guide.position = vertex;
+			//if(!leftHand) guide.position = vertex;
         }
 
 		else if(i==NUI_SKELETON_POSITION_FOOT_LEFT || i== NUI_SKELETON_POSITION_FOOT_RIGHT){
@@ -273,30 +213,9 @@ void update()
         }
     }
     
-
-	// Update fruit objects and intersections with the hands	
-	if(!hotDonutTouched){
-		//computes distance between fruit and left hand blade
-		if(leftHand){
-
-			float distance = GestureManager::Inst()->distance(0, donuts.at(hotDonut).position);
-			if ( distance<donuts.at(hotDonut).size ) hotDonutTouched = true;
-		}
-            
-		//computes distance between fruit and right hand blade
-		if(!leftHand){
-			float distance = GestureManager::Inst()->distance(1, donuts.at(hotDonut).position);
-			if ( distance<donuts.at(hotDonut).size ) hotDonutTouched = true;
-		}
-	}
-		
-    if (hotDonutTouched && shuffled)
-    {
-		//Increase score!
-		score+=10;
-		shuffled = false;
-		//load a check mark, until shuffled!
-    }    
+	//must add game update!
+	//DotSpot.update();
+	
     glutPostRedisplay();
 }
 
@@ -324,14 +243,10 @@ void render()
     };
     VertexData meshData = { &(vertices[0][0]), NULL, NULL, &(texcoords[0][0]) };
     
+	//Put if block here to render current background?
 	//Replace background with game over texture
-    if ( life<=0 ){
-		TextureManager::Inst()->BindTexture( gameOverTexID );
-	}
-    else{ 
-		//printf("Binding background texture");
-		TextureManager::Inst()->BindTexture( backgroundTexID );	//or keep it the same
-	}
+	//printf("Binding background texture");
+	TextureManager::Inst()->BindTexture( backgroundTexIDs[currentScreen->backgroundIDIndex] );	//or keep it the same
     drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
     
     // Blend with depth quad
@@ -346,18 +261,7 @@ void render()
     glBindTexture( GL_TEXTURE_2D, playerDepthTexture->id );
     drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
     
-    // Blend with dot objects
-    for ( unsigned int i=0; i<donuts.size(); ++i )
-		donuts[i].render(objectTexIDs);
-
-
-	//DRAW GUIDE OVER CURRENT HAND
-	guide.render(objectTexIDs);
-
-	if(!shuffled && hotDonutTouched){
-		//render a check mark
-		checkMark.render(objectTexIDs);
-	}
+	currentScreen->render(objectTexIDs);	
     
     // Blend with hand trails
     glDisable( GL_TEXTURE_2D );
@@ -375,12 +279,13 @@ void render()
 	LONG temp;
 	NuiCameraElevationGetAngle(&temp);
     std::stringstream ss;
-    ss << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
-	ss << "Elevation Angle: " << temp;
+	ss << currentScreen->string;
+    // ss << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
+	//ss << "Elevation Angle: " << temp;
     
-    glRasterPos2f( 0.01f, 0.01f );
-    glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );		//WHITE TEXT
-    glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
+    //glRasterPos2f( 0.01f, 0.01f );
+    //glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );		//WHITE TEXT
+    //glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
     
     glutSwapBuffers();
 }
@@ -405,12 +310,8 @@ void timer( int value ) {
 	// increase frame index
 	g_frameIndex++;
 
-	//This determines speed
-	//Which in turn determines difficulty
-	if(g_frameIndex%200 == 0){
-		shuffleDots();
-	}
-	
+	//DotSpot.timer
+	currentScreen->timer(g_frameIndex);
 	// render
 	glutPostRedisplay();
 
@@ -420,51 +321,30 @@ void timer( int value ) {
 }
 
 bool initTextures(){
-	//Create background texture
-    if ( TextureManager::Inst()->LoadTexture("DotSpotBkg-01.jpg", backgroundTexID, GL_BGR_EXT) )
-    {
-		printf("Background Texture opened succesfullyl\n\n\n\n");
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    } else return false;
-    
-	//create fruit textures?
-    for ( int i=0; i<4; ++i )
+	//Create background textures
+	for ( int i=0; i<numBackgrounds; i++ )
     {
         std::stringstream ss;
-        ss << "FruitNinja" << i+2 << ".png";
+        ss << "Background" << i << ".jpg";
+		if ( TextureManager::Inst()->LoadTexture(ss.str().c_str(), backgroundTexIDs[i], GL_BGR_EXT) )
+		{
+			printf("Background Texture opened succesfully\n\n\n\n");
+			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+		} else return false;
+	}
+    
+	//create fruit textures?
+	for ( int i=0; i<numObjects; i++ )
+    {
+        std::stringstream ss;
+        ss << "Object" << i << ".png";
         if ( TextureManager::Inst()->LoadTexture(ss.str().c_str(), objectTexIDs[i], GL_BGRA_EXT, 4) )
         {
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
             glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
         } else return false;
     } 
-
-	//create guide textures
-	//RED
-	if(TextureManager::Inst()->LoadTexture("RedCircle.png", objectTexIDs[4], GL_BGRA_EXT, 4)){
-		 glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	} else return false;
-
-	if(TextureManager::Inst()->LoadTexture("GreenCircle.png", objectTexIDs[5], GL_BGRA_EXT, 4)){
-		 glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	} else return false;
-
-	
-	if(TextureManager::Inst()->LoadTexture("BlueCircle.png", objectTexIDs[6], GL_BGRA_EXT, 4)){
-		 glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	} else return false;
-
-	//create game over texture 
-    if ( TextureManager::Inst()->LoadTexture("FruitNinja6.jpg", gameOverTexID, GL_BGR_EXT) )
-    {
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    } else return false;
-
 	return true;
 }
 
@@ -473,7 +353,9 @@ int main( int argc, char** argv )
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH|GLUT_MULTISAMPLE );
     glutCreateWindow( "Dot Spot Window" );
-    glutFullScreen();
+    //glutFullScreen();
+	glutInitWindowSize( 500, 500 ); 
+	glutInitWindowPosition( 100, 100 );
     
     glutIdleFunc( update );
     glutDisplayFunc( render );
@@ -482,8 +364,9 @@ int main( int argc, char** argv )
     glutKeyboardFunc( keyEvents );
 	glutTimerFunc( 16, timer, 0 );
 
-	if(initTextures()){
+	if(!initTextures()){
 		printf("Texture failed to load");
+		return 1;
 	}
     
     if ( !initializeKinect() ) return 1;
@@ -495,16 +378,7 @@ int main( int argc, char** argv )
     smoothParams.fPrediction = 0.4f;
     smoothParams.fSmoothing = 0.2f;
 
-	//create donuts
-	donuts.push_back(DotObject(1, 0.1f, 0.25f, 0.2f));
-	donuts.push_back(DotObject(2, 0.1f,  0.45f, 0.2f));
-	donuts.push_back(DotObject(0, 0.1f,  0.66f, 0.2f));
-
-	shuffleDots();
-
-	guide= DotObject(6, 0.04f, 0.0f, 0.0f);
-	checkMark = DotObject(3, 0.1, 0.45f, 0.5f);
-
+	currentScreen = new DotSpot();
 
 	glutMainLoop();
     

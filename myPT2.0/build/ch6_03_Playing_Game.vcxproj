@@ -112,19 +112,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Interaction.h" />
+    <ClInclude Include="..\common\GestureManager.h" />
     <ClInclude Include="..\common\GLUtilities.h" />
     <ClInclude Include="..\common\TextureManager.h" />
-    <ClInclude Include="..\GestureManager.h" />
+    <ClInclude Include="..\DotSpot.h" />
+    <ClInclude Include="..\Frame.h" />
     <ClInclude Include="DotObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp">
     </ClCompile>
+    <ClCompile Include="..\common\GestureManager.cpp" />
     <ClCompile Include="..\common\GLUtilities.cpp">
     </ClCompile>
     <ClCompile Include="..\common\TextureManager.cpp">
     </ClCompile>
-    <ClCompile Include="..\GestureManager.cpp" />
+    <ClCompile Include="..\DotSpot.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,11 +1,14 @@
+#ifndef DotObject_H
+#define DotObject_H
+
 #include <GL/freeglut.h>
 #include "common/TextureManager.h"
 #include "common/GLUtilities.h"
 #include "vertex3.h"
-enum Color{red, green, blue};
 
 class DotObject
 {
+
 public:
 
 	DotObject(){
@@ -19,32 +22,9 @@ public:
         texOffset[0] = tx; texOffset[1] = ty;
         texOffset[2] = tx + tw; texOffset[3] = ty + th;
         position.x() = posx; position.y() = posy; position.z() = 0.0f;
-        objectID = id;
-		timer = 120;
+        objectIDIndex = id;
     }
 
-	void setDotColor(Color color){
-		switch (color){
-			case red:
-				glColor3f(1,0,0);
-			break;
-			case green:
-				glColor3f(0,1,0);
-			break;
-			case blue:
-				glColor3f(0,0,1);
-			break;
-		}
-	}
-
-	void drawDot(){
-		setDotColor(dcolor);
-		glPushMatrix();
-		glTranslatef(position.x(), position.y(), 0.0);
-		glutSolidTorus(0.1, 0.3, 30,30);
-		glPopMatrix();
-	}
-    
     void update()
     {
 		//does not need to do anything.
@@ -66,20 +46,18 @@ public:
 
         glPushMatrix();
 			glTranslatef( position.x(), position.y(), position.z());
-			TextureManager::Inst()->BindTexture( objectTexIDs[objectID] );
+			TextureManager::Inst()->BindTexture(objectTexIDs[objectIDIndex]);
 			drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
         glPopMatrix();
 
 		//drawDot();
     }
 
+	//Member data
     GLfloat texOffset[4];
 	GLfloat size;
     vertex3 position;
-    unsigned int objectID;	//will also be able to take care of position
-    bool canTouch;
-	bool tapped;
-	int timer;
-	Color dcolor;
-
+    unsigned int objectIDIndex;	//will also be able to take care of position
 };
+
+#endif
