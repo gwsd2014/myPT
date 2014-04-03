@@ -1,7 +1,6 @@
 #ifndef GestureManager_H
 #define GestureManager_H
 
-
 #include <vector>
 #include "vertex3.h"
 #include "GLUtilities.h"
@@ -31,7 +30,6 @@ class GestureManager{
 		unsigned int holdGestureCount[2];
 		unsigned int swipeGestureCount[2];
 		GLfloat trailColors[20][4];
-
 };
 
 #endif

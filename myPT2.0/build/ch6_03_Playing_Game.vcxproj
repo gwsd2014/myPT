@@ -112,12 +112,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\ViewManager.h" />
     <ClInclude Include="..\Interaction.h" />
     <ClInclude Include="..\common\GestureManager.h" />
     <ClInclude Include="..\common\GLUtilities.h" />
     <ClInclude Include="..\common\TextureManager.h" />
     <ClInclude Include="..\DotSpot.h" />
     <ClInclude Include="..\Frame.h" />
+    <ClInclude Include="..\Menu.h" />
     <ClInclude Include="DotObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +130,7 @@
     </ClCompile>
     <ClCompile Include="..\common\TextureManager.cpp">
     </ClCompile>
+    <ClCompile Include="..\common\ViewManager.cpp" />
     <ClCompile Include="..\DotSpot.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

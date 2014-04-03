@@ -26,7 +26,9 @@ private:
 	bool shuffled;
 	bool leftHand; //true for left, false if right;
 	int score, life;
-	
+	Button restart;
+	Button exit;
+
 	std::vector<DotObject> donuts;
 	
 	DotObject guide;	//originally set to blue

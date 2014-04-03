@@ -1,3 +1,4 @@
+#pragma once
 #include <GL/freeglut.h>
 #include <MSHTML.h>
 #include <NuiApi.h>
@@ -10,19 +11,19 @@
 #include "vertex3.h"
 #include "DotSpot.h"
 #include "common/GestureManager.h"
-#include "Frame.h"
+#include "common/ViewManager.h"
+#include "Menu.h"
 
 INuiSensor* context = NULL;
 HANDLE colorStreamHandle = NULL;
 HANDLE depthStreamHandle = NULL;
 TextureObject* playerDepthTexture = NULL;
-Frame* currentScreen;
 
 NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 
 //DotSpot etc.
-int numBackgrounds = 1;
-const static unsigned int backgroundTexIDs[1] = {8};
+int numBackgrounds = 2;
+const static unsigned int backgroundTexIDs[2] = {8, 9};
 //array containing texture id's for game images
 //apple, orange, orange, checkmark, red guide, green guide, blue guide
 int numObjects = 8;
@@ -187,7 +188,6 @@ void updateSkeletonData( NUI_SKELETON_DATA& data )
 
 void update()
 {
-
 	//Update Kinect Skeleton Depth overlay
     NUI_IMAGE_FRAME depthFrame;
     HRESULT hr = context->NuiImageStreamGetNextFrame( depthStreamHandle, 0, &depthFrame );
@@ -213,8 +213,8 @@ void update()
         }
     }
     
-	//must add game update!
-	//DotSpot.update();
+	//must add frame update!
+	ViewManager::Inst()->update();
 	
     glutPostRedisplay();
 }
@@ -246,7 +246,7 @@ void render()
 	//Put if block here to render current background?
 	//Replace background with game over texture
 	//printf("Binding background texture");
-	TextureManager::Inst()->BindTexture( backgroundTexIDs[currentScreen->backgroundIDIndex] );	//or keep it the same
+	TextureManager::Inst()->BindTexture( backgroundTexIDs[ViewManager::Inst()->getBkgIndex()] );	//or keep it the same
     drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
     
     // Blend with depth quad
@@ -261,7 +261,7 @@ void render()
     glBindTexture( GL_TEXTURE_2D, playerDepthTexture->id );
     drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
     
-	currentScreen->render(objectTexIDs);	
+	ViewManager::Inst()->render(objectTexIDs);	
     
     // Blend with hand trails
     glDisable( GL_TEXTURE_2D );
@@ -279,7 +279,7 @@ void render()
 	LONG temp;
 	NuiCameraElevationGetAngle(&temp);
     std::stringstream ss;
-	ss << currentScreen->string;
+	//ss << ViewManager::Inst()->getText();
     // ss << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
 	//ss << "Elevation Angle: " << temp;
     
@@ -311,7 +311,7 @@ void timer( int value ) {
 	g_frameIndex++;
 
 	//DotSpot.timer
-	currentScreen->timer(g_frameIndex);
+	ViewManager::Inst()->timer(g_frameIndex);
 	// render
 	glutPostRedisplay();
 
@@ -377,8 +377,6 @@ int main( int argc, char** argv )
     smoothParams.fMaxDeviationRadius = 0.5f;
     smoothParams.fPrediction = 0.4f;
     smoothParams.fSmoothing = 0.2f;
-
-	currentScreen = new DotSpot();
 
 	glutMainLoop();
     

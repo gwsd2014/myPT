@@ -17,6 +17,8 @@
     <ClInclude Include="..\common\GestureManager.h" />
     <ClInclude Include="..\Frame.h" />
     <ClInclude Include="..\Interaction.h" />
+    <ClInclude Include="..\Menu.h" />
+    <ClInclude Include="..\common\ViewManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp" />
@@ -28,5 +30,6 @@
     </ClCompile>
     <ClCompile Include="..\common\GestureManager.cpp" />
     <ClCompile Include="..\DotSpot.cpp" />
+    <ClCompile Include="..\common\ViewManager.cpp" />
   </ItemGroup>
 </Project>

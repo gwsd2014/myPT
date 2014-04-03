@@ -11,6 +11,11 @@ DotSpot::DotSpot(): Frame(){
 		guide = DotObject(6, (GLfloat)0.04f, (GLfloat)0.0f, (GLfloat)0.0f);
 		checkMark = DotObject(3, (GLfloat)0.1, (GLfloat)0.45f, (GLfloat)0.5f);
 		backgroundIDIndex = 0;
+
+		restart = Button(0.1f, 0.9f);
+		exit = Button(0.9f, 0.9f);
+		interactions.push_back(&restart);
+		interactions.push_back(&exit);
 }
 
 void DotSpot::shuffleDots(){
@@ -22,7 +27,7 @@ void DotSpot::shuffleDots(){
 			leftHand = true;
 		else 
 			leftHand = false;
-		printf("Hot donut is %d\n", hotDonut);
+		//printf("Hot donut is %d\n", hotDonut);
 		switch (hotDonut)
 		{
 			case 0:
@@ -81,6 +86,9 @@ void DotSpot::render(const unsigned int* objectTexIDs){
 		checkMark.render(objectTexIDs);
 	}
 
+	//makes call to parent render
+	//this renders all interactions if there are any that require rendering
+	__super::render(objectTexIDs);
 
 	//string.clear();
 	//string << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
@@ -89,6 +97,18 @@ void DotSpot::render(const unsigned int* objectTexIDs){
 }
 
 void DotSpot::update(){
+
+	//makes call to parent update which updates interaction info
+	__super::update();
+
+	//handle buttons!
+	if(restart.pressed){
+		score = 0; life = 100; 
+	}
+	if(exit.pressed)
+		 glutLeaveMainLoop();
+
+
 	// Update fruit objects and intersections with the hands	
 	if(!hotDonutTouched){
 		//computes distance between fruit and left hand blade
@@ -111,4 +131,5 @@ void DotSpot::update(){
 		shuffled = false;
 		//load a check mark, until shuffled!
 	}    
+
 }

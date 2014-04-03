@@ -89,21 +89,24 @@ void GestureManager::guessGesture( unsigned int index, float yMin, float zMax )
         {
 			//deprecated!
 			//check all Button interactions...
-       //     if ( currentY>0.9f && currentX<0.1f )  // Restart
-       //     { score = 0; life = 100; }
-        //    else if ( currentY>0.9f && currentX>0.9f )  // Exit
-         //       glutLeaveMainLoop();
+			//if ( currentY>0.9f && currentX<0.1f )  // Restart
+			//{ score = 0; life = 100; }
+			//else if ( currentY>0.9f && currentX>0.9f )  // Exit
+			//glutLeaveMainLoop();
+			//printf("Current X is %f and Current Y is %f\n", rightHandTrails.back().getx(), rightHandTrails.back().gety());
         }
     }
 }
 
 bool GestureManager::buttonPressed(int index, float X, float Y){
-    if ( index ==0 && holdGestureCount[0]>20 )	//if hand is being held over a button, handle it
+    if ( index == 0 && holdGestureCount[0]>20 )	//if hand is being held over a button, handle it
     {
 		float curX = leftHandTrails.back().getx();
 		float curY = leftHandTrails.back().gety();
+		//printf("-------CurX = %f and CurY = %f", curX, curY);
 		//checks that hold is on button space!
-        if (( curY>(Y-.05) && curY<(Y=.05)) && ( curX>(X-.05) && curX<(X=.05))){
+        if (( curY>(Y-.05) && curY<(Y+.05)) && ( curX>(X-.05) && curX<(X+.05))){
+			//printf("Button has been pressed with Left hand\n");
 			return true;
 		}
     }
@@ -112,7 +115,8 @@ bool GestureManager::buttonPressed(int index, float X, float Y){
 		float curX = rightHandTrails.back().getx();
 		float curY = rightHandTrails.back().gety();
 		//checks that hold is on button space!
-        if (( curY>(Y-.05) && curY<(Y=.05)) && ( curX>(X-.05) && curX<(X=.05))){
+        if (( curY>(Y-.05) && curY<(Y+.05)) && ( curX>(X-.05) && curX<(X+.05))){
+			//printf("Button has been pressed with right hand\n");
 			return true;
 		}
     }
@@ -149,7 +153,7 @@ int GestureManager::getTrailsSize(int index){
 }
 
 vertex3 GestureManager::getCurrentHandData(int index){
-	if(index ==0)
+	if(index == 0)
 		return leftHandTrails.back();
 	else
 		return rightHandTrails.back();
