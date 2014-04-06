@@ -9,7 +9,7 @@ DotSpot::DotSpot(): Frame(){
 		shuffleDots();
 
 		guide = DotObject(6, (GLfloat)0.04f, (GLfloat)0.0f, (GLfloat)0.0f);
-		checkMark = DotObject(3, (GLfloat)0.1, (GLfloat)0.45f, (GLfloat)0.5f);
+		checkMark = DotObject(3, (GLfloat)0.5, (GLfloat)0.35f, (GLfloat)0.35f);
 		backgroundIDIndex = 0;
 
 		restart = Button(0.1f, 0.9f);
@@ -108,6 +108,12 @@ void DotSpot::update(){
 	if(exit.pressed)
 		 glutLeaveMainLoop();
 
+
+	if(leftHand){
+		guide.position = GestureManager::Inst()->getCurrentHandData(0);
+	}else{
+		guide.position = GestureManager::Inst()->getCurrentHandData(0);
+	}
 
 	// Update fruit objects and intersections with the hands	
 	if(!hotDonutTouched){

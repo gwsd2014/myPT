@@ -38,7 +38,7 @@ public:
 	}
 
 	virtual void timer(int value){
-		printf("I do something!");
+		//printf("I do something!");
 	}
 };
 

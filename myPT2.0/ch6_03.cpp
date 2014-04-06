@@ -22,8 +22,8 @@ TextureObject* playerDepthTexture = NULL;
 NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 
 //DotSpot etc.
-int numBackgrounds = 2;
-const static unsigned int backgroundTexIDs[2] = {8, 9};
+int numBackgrounds = 8;
+const static unsigned int backgroundTexIDs[11] = {8, 9, 10, 11, 12, 13, 14, 15};
 //array containing texture id's for game images
 //apple, orange, orange, checkmark, red guide, green guide, blue guide
 int numObjects = 8;

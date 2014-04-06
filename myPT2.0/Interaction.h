@@ -27,7 +27,9 @@ public:
 		//create individual buttons for each need?
 	}
 
-	virtual void render(const unsigned int* objTexures){}
+	virtual void render(const unsigned int* objTexures){
+
+	}
 };
 
 #endif
@@ -40,26 +42,79 @@ class Button: public Interaction{
 public:
 	bool pressed;
 	bool leftHand;
+	float range;
+	bool hover;
+	DotObject guide;
 	Button() : Interaction() {
 		pressed = false;
+		this->range = 0.1f;
 	}
 
 	Button(float X, float Y) : Interaction(X, Y){
 		pressed = false;
+		hover = false;
+		this->range = 0.1f;
+		guide = DotObject(6, 0.05, 0.0, 0.0);
+	}
+
+	Button(float X, float Y, float range) : Interaction(X, Y){
+		pressed = false;
+		hover = false;
+		this->range = range;
+		guide = DotObject(6, 0.05, 0.0, 0.0);
 	}
 
 	virtual ~Button(){
 
 	}
 
-	virtual void handleInteraction(){
-		if(GestureManager::Inst()->buttonPressed(0, X, Y)){
-			pressed =  true;
-			leftHand = true;
+	virtual void render(const unsigned int* objectTexIDs){
+		//printf("Rendering Button Interaction\n");
+		DotObject test(5, 0.02, X, Y);
+		test.render(objectTexIDs);
+		if(hover && leftHand){
+			vertex3 handData = GestureManager::Inst()->getCurrentHandData(0);
+			guide.position.setx(handData.getx());
+			guide.position.sety(handData.gety());
+			guide.render(objectTexIDs);
+		} else if(hover && !leftHand){
+			vertex3 handData = GestureManager::Inst()->getCurrentHandData(1);
+			guide.position.setx(handData.getx());
+			guide.position.sety(handData.gety());
+			guide.render(objectTexIDs);
 		}
-		if(GestureManager::Inst()->buttonPressed(1, X, Y)){
-			pressed =  true;
+	}
+
+	virtual void handleInteraction(){
+		int resultLeft = GestureManager::Inst()->buttonPressed(0, X, Y, 20, range/2);
+		int resultRight = GestureManager::Inst()->buttonPressed(1, X, Y, 20, range/2);
+		//printf("Handling Button Interaction\n");
+		if(resultRight == 2){
+			pressed = true;
 			leftHand = false;
+			hover = true;
+				printf("Pressed with right hand!\n");
+		}
+		else if(resultRight == 1){
+			leftHand = false;
+			hover = true;
+		}
+		else if(resultRight == 0){
+			leftHand = false;
+			hover = false;
+		}else if(resultLeft == 2){
+			pressed = true;
+			leftHand = true;
+			hover = true;
+			printf("Pressed with left hand!\n");
+		}
+		else if(resultLeft == 1){
+			leftHand = true;
+			hover = true;
+		}
+		else if(resultLeft == 0){
+			leftHand = false;
+			hover = false;
 		}
 	}
 };
@@ -71,22 +126,36 @@ public:
 class ButtonWithTexture: public Interaction{
 public:
 	bool pressed;
-	bool beingPressed;
+	bool hover;
 	bool leftHand;
+	float range;
 	DotObject prettyPicture;
+	DotObject guide;
+	vertex3 leftHandData;
+	vertex3 rightHandData;
 
 	ButtonWithTexture() : Interaction() {
 		//dont use this
 		pressed = false;
 		leftHand = false;
-		beingPressed = false;
+		range = 0.1f;
 	}
 
 	ButtonWithTexture(float X, float Y, float size, int texIDIndex) : Interaction(X, Y){
 		pressed = false;
-		prettyPicture = DotObject(texIDIndex, size, X, Y);
+		prettyPicture = DotObject(texIDIndex, size, X, Y, 20);
 		leftHand = false;
-		beingPressed = false;
+		hover = false;
+		guide = DotObject(6, 0.05, 0.0, 0.0);
+	}
+
+	ButtonWithTexture(float X, float Y, float size, int texIDIndex, float range) : Interaction(X, Y){
+		pressed = false;
+		prettyPicture = DotObject(texIDIndex, size, X, Y, 20);
+		leftHand = false;
+		this->range = range;
+		hover = false;
+		guide = DotObject(6, 0.05, 0.0, 0.0);
 	}
 
 	virtual ~ButtonWithTexture(){
@@ -95,21 +164,51 @@ public:
 
 	void render(const unsigned int* objectTexIDs){
 		prettyPicture.render(objectTexIDs);
+		DotObject test(5, 0.02, X, Y);
+		test.render(objectTexIDs);
+		if(hover && leftHand){
+			vertex3 handData = GestureManager::Inst()->getCurrentHandData(0);
+			guide.position.setx(handData.getx());
+			guide.position.sety(handData.gety());
+			guide.render(objectTexIDs);
+		} else if(hover && !leftHand){
+			vertex3 handData = GestureManager::Inst()->getCurrentHandData(1);
+			guide.position.setx(handData.getx());
+			guide.position.sety(handData.gety());
+			guide.render(objectTexIDs);
+		}
 	}
 
 	virtual void handleInteraction(){
-		if(GestureManager::Inst()->buttonPressed(0, X, Y)){
-			printf("Left Hand button being pressed");
-			pressed = true;
-			leftHand = true;
-			beingPressed = true;
-		}
-		else if(GestureManager::Inst()->buttonPressed(1, X, Y)){
+		int resultLeft = GestureManager::Inst()->buttonPressed(0, X, Y, 20, range/2);
+		int resultRight = GestureManager::Inst()->buttonPressed(1, X, Y, 20, range/2);
+		//printf("Handling Button Interaction\n");
+		if(resultRight == 2){
 			pressed = true;
 			leftHand = false;
-			beingPressed = true;
-		}else{
-			beingPressed = false;
+			hover = true;
+				printf("Pressed with right hand!\n");
+		}
+		else if(resultRight == 1){
+			leftHand = false;
+			hover = true;
+		}
+		else if(resultRight == 0){
+			leftHand = false;
+			hover = false;
+		}else if(resultLeft == 2){
+			pressed = true;
+			leftHand = true;
+			hover = true;
+			printf("Pressed with left hand!\n");
+		}
+		else if(resultLeft == 1){
+			leftHand = true;
+			hover = true;
+		}
+		else if(resultLeft == 0){
+			leftHand = false;
+			hover = false;
 		}
 	}
 };
@@ -130,10 +229,29 @@ public:
 	}
 
 	Slider(bool ishorizontal, float X, float Y) : Interaction(X, Y){
-		slideHandle = ButtonWithTexture(X, Y-.05, 0.1, 7);
+		slideHandle = ButtonWithTexture(X, Y-.1, 0.07, 7, 0.15);
 		horizontal = ishorizontal;
 		slid = false;
 		percent = -1.0;
+		startPosX = 0.05;
+		endPosX = 0.095;
+		startPosY = endPosY = 0.5;
+	}
+
+	Slider(bool ishorizontal, float X, float Y, float start, float end, float position) : Interaction(X, Y){
+		slideHandle = ButtonWithTexture(X, Y-.1, 0.07, 7, 0.15);
+		horizontal = ishorizontal;
+		slid = false;
+		percent = -1.0;
+		if(horizontal){
+			startPosX = start;
+			endPosX = end;
+			startPosY = endPosY = position;
+		}else{
+			startPosY = start;
+			endPosY = end;
+			startPosX = endPosX = position;
+		}
 	}
 
 	virtual ~Slider(){
@@ -149,7 +267,7 @@ public:
 		vertex3 leftHandData = GestureManager::Inst()->getCurrentHandData(0);
 		vertex3 rightHandData = GestureManager::Inst()->getCurrentHandData(1);
 
-		if(slideHandle.beingPressed){
+		if(slideHandle.hover){
 			slid = true;
 		}
 

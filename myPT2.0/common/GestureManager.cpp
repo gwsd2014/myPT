@@ -98,29 +98,49 @@ void GestureManager::guessGesture( unsigned int index, float yMin, float zMax )
     }
 }
 
-bool GestureManager::buttonPressed(int index, float X, float Y){
-    if ( index == 0 && holdGestureCount[0]>20 )	//if hand is being held over a button, handle it
-    {
-		float curX = leftHandTrails.back().getx();
-		float curY = leftHandTrails.back().gety();
+bool GestureManager::buttonHover(int index, float X, float Y, float threshold){
+	float curX = leftHandTrails.back().getx();
+	float curY = leftHandTrails.back().gety();
 		//printf("-------CurX = %f and CurY = %f", curX, curY);
 		//checks that hold is on button space!
-        if (( curY>(Y-.05) && curY<(Y+.05)) && ( curX>(X-.05) && curX<(X+.05))){
+    if (( curY>(Y-threshold) && curY<(Y+threshold)) && ( curX>(X-threshold) && curX<(X+threshold))){
 			//printf("Button has been pressed with Left hand\n");
 			return true;
-		}
-    }
-	if ( index == 1 && holdGestureCount[1]>20 )	//if hand is being held over a button, handle it
-    {
-		float curX = rightHandTrails.back().getx();
-		float curY = rightHandTrails.back().gety();
+	}
+}
+
+//returns 0 if nothing, returns 1 on hover, retruns 2 on pressed(held).
+int GestureManager::buttonPressed(int index, float X, float Y, int numberFramesHeld, float threshold){
+	 if (index==0 ){
+		float curX = leftHandTrails.back().getx();
+		float curY = leftHandTrails.back().gety();		
+		
+		//printf("-------CurX = %f and CurY = %f", curX, curY);
 		//checks that hold is on button space!
-        if (( curY>(Y-.05) && curY<(Y+.05)) && ( curX>(X-.05) && curX<(X+.05))){
-			//printf("Button has been pressed with right hand\n");
-			return true;
+		 if(curY>(Y-threshold) && curY<(Y+threshold) && ( curX>(X-threshold) && curX<(X+threshold))){
+		
+			 if (holdGestureCount[0]>numberFramesHeld ){	//if hand is being held over a button, handle it
+				return 2;	
+			 }
+			return 1;
 		}
+		 return 0;
     }
-	return false;
+	 if (index==1 ){
+		float curX = rightHandTrails.back().getx();
+		float curY = rightHandTrails.back().gety();		
+		
+		//printf("-------CurX = %f and CurY = %f", curX, curY);
+		//checks that hold is on button space!
+		 if(curY>(Y-threshold) && curY<(Y+threshold) && ( curX>(X-threshold) && curX<(X+threshold))){
+		
+			 if (holdGestureCount[1]>numberFramesHeld ){	//if hand is being held over a button, handle it
+				return 2;	
+			 }
+			return 1;
+		}
+		 return 0;
+    }
 }
 
 float GestureManager::distance(int index, vertex3 vertex){
