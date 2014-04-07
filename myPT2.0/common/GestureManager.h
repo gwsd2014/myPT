@@ -13,7 +13,7 @@ class GestureManager{
 		GestureManager();
 
 
-		void guessGesture( unsigned int index, float yMin, float zMax );
+		void guessGesture( unsigned int index,float zMax );
 		void addLeftHandData(vertex3 vertex);
 		void addRightHandData(vertex3 vertex);
 		float distance(int index, vertex3 vertex);
@@ -22,6 +22,7 @@ class GestureManager{
 		bool buttonHover(int index, float X, float Y, float threshold);
 		int buttonPressed(int index, float X, float Y, int numFramesHeld, float threshold);
 		vertex3 getCurrentHandData(int index);
+		void resetData();
 
 	protected:
 		static GestureManager* m_inst;

@@ -23,11 +23,11 @@ NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 
 //DotSpot etc.
 int numBackgrounds = 8;
-const static unsigned int backgroundTexIDs[11] = {8, 9, 10, 11, 12, 13, 14, 15};
+const static unsigned int backgroundTexIDs[8] = {8, 9, 10, 11, 12, 13, 14, 15};
 //array containing texture id's for game images
 //apple, orange, orange, checkmark, red guide, green guide, blue guide
-int numObjects = 8;
-const static unsigned int objectTexIDs[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+int numObjects = 9;
+const static unsigned int objectTexIDs[9] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 const unsigned int gameOverTexID = 6;
 
 // frame index
@@ -182,8 +182,8 @@ void updateSkeletonData( NUI_SKELETON_DATA& data )
 		}
     }
     //must be capable of handling buttons in some way...
-	GestureManager::Inst()->guessGesture(0, yMin, zMax);
-	GestureManager::Inst()->guessGesture(1, yMin, zMax);
+	GestureManager::Inst()->guessGesture(0, zMax);
+	GestureManager::Inst()->guessGesture(1, zMax);
 }
 
 void update()
@@ -246,7 +246,7 @@ void render()
 	//Put if block here to render current background?
 	//Replace background with game over texture
 	//printf("Binding background texture");
-	TextureManager::Inst()->BindTexture( backgroundTexIDs[ViewManager::Inst()->getBkgIndex()] );	//or keep it the same
+	TextureManager::Inst()->BindTexture( backgroundTexIDs[ViewManager::Inst()->getBkgIndex()]);
     drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
     
     // Blend with depth quad
@@ -328,7 +328,7 @@ bool initTextures(){
         ss << "Background" << i << ".jpg";
 		if ( TextureManager::Inst()->LoadTexture(ss.str().c_str(), backgroundTexIDs[i], GL_BGR_EXT) )
 		{
-			printf("Background Texture opened succesfully\n\n\n\n");
+			printf("Background Texture opened succesfully\n\n");
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		} else return false;

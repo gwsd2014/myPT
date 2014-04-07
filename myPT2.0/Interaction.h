@@ -44,10 +44,12 @@ public:
 	bool leftHand;
 	float range;
 	bool hover;
+	int numFramesToHold;
 	DotObject guide;
 	Button() : Interaction() {
 		pressed = false;
 		this->range = 0.1f;
+		int numFramesToHold = 20;
 	}
 
 	Button(float X, float Y) : Interaction(X, Y){
@@ -55,6 +57,7 @@ public:
 		hover = false;
 		this->range = 0.1f;
 		guide = DotObject(6, 0.05, 0.0, 0.0);
+		this->numFramesToHold = 20;
 	}
 
 	Button(float X, float Y, float range) : Interaction(X, Y){
@@ -62,7 +65,17 @@ public:
 		hover = false;
 		this->range = range;
 		guide = DotObject(6, 0.05, 0.0, 0.0);
+		this->numFramesToHold = 20;
 	}
+
+	Button(float X, float Y, float range, int numFrameToHold) : Interaction(X, Y){
+		pressed = false;
+		hover = false;
+		this->range = range;
+		guide = DotObject(6, 0.05, 0.0, 0.0);
+		this->numFramesToHold = numFramesToHold;
+	}
+
 
 	virtual ~Button(){
 
@@ -85,9 +98,13 @@ public:
 		}
 	}
 
+	void resetButton(){
+		pressed = false;
+	}
+
 	virtual void handleInteraction(){
-		int resultLeft = GestureManager::Inst()->buttonPressed(0, X, Y, 20, range/2);
-		int resultRight = GestureManager::Inst()->buttonPressed(1, X, Y, 20, range/2);
+		int resultLeft = GestureManager::Inst()->buttonPressed(0, X, Y, numFramesToHold, range/2);
+		int resultRight = GestureManager::Inst()->buttonPressed(1, X, Y, numFramesToHold, range/2);
 		//printf("Handling Button Interaction\n");
 		if(resultRight == 2){
 			pressed = true;
@@ -139,19 +156,21 @@ public:
 		pressed = false;
 		leftHand = false;
 		range = 0.1f;
+		hover = false;
 	}
 
 	ButtonWithTexture(float X, float Y, float size, int texIDIndex) : Interaction(X, Y){
 		pressed = false;
-		prettyPicture = DotObject(texIDIndex, size, X, Y, 20);
+		prettyPicture = DotObject(texIDIndex, size, X - (size/2), Y- (size/2), 20);
 		leftHand = false;
 		hover = false;
 		guide = DotObject(6, 0.05, 0.0, 0.0);
+		range = size/2.0f;
 	}
 
-	ButtonWithTexture(float X, float Y, float size, int texIDIndex, float range) : Interaction(X, Y){
+	ButtonWithTexture(float X, float Y, float size, int texIDIndex, float range, int numFramestoHold) : Interaction(X, Y){
 		pressed = false;
-		prettyPicture = DotObject(texIDIndex, size, X, Y, 20);
+		prettyPicture = DotObject(texIDIndex, size, X - (size/2), Y- (size/2), numFramestoHold);
 		leftHand = false;
 		this->range = range;
 		hover = false;
@@ -160,6 +179,10 @@ public:
 
 	virtual ~ButtonWithTexture(){
 
+	}
+
+	void resetButton(){
+		pressed = false;
 	}
 
 	void render(const unsigned int* objectTexIDs){
@@ -228,26 +251,18 @@ public:
 	Slider() : Interaction() {	
 	}
 
-	Slider(bool ishorizontal, float X, float Y) : Interaction(X, Y){
-		slideHandle = ButtonWithTexture(X, Y-.1, 0.07, 7, 0.15);
-		horizontal = ishorizontal;
-		slid = false;
-		percent = -1.0;
-		startPosX = 0.05;
-		endPosX = 0.095;
-		startPosY = endPosY = 0.5;
-	}
-
-	Slider(bool ishorizontal, float X, float Y, float start, float end, float position) : Interaction(X, Y){
-		slideHandle = ButtonWithTexture(X, Y-.1, 0.07, 7, 0.15);
+	Slider(bool ishorizontal, float start, float end, float position) : Interaction(X, Y){
+		//slideHandle = ButtonWithTexture(X, Y-.1, 0.07, 7, 0.1, 10);
 		horizontal = ishorizontal;
 		slid = false;
 		percent = -1.0;
 		if(horizontal){
+			slideHandle = ButtonWithTexture((end-start)/2.0f, position, 0.07, 7, 0.07, 20);
 			startPosX = start;
 			endPosX = end;
 			startPosY = endPosY = position;
 		}else{
+			slideHandle = ButtonWithTexture(position,(end-start)/2.0f, 0.07, 7, 0.07, 20);
 			startPosY = start;
 			endPosY = end;
 			startPosX = endPosX = position;
@@ -267,27 +282,27 @@ public:
 		vertex3 leftHandData = GestureManager::Inst()->getCurrentHandData(0);
 		vertex3 rightHandData = GestureManager::Inst()->getCurrentHandData(1);
 
-		if(slideHandle.hover){
+		if(slideHandle.pressed && slideHandle.hover){
 			slid = true;
 		}
 
 		//LEFT HAND IS MOST RECENT PRESS!
 		if(slideHandle.leftHand){
-			if(slid && horizontal && (leftHandData.gety() < (slideHandle.Y + 0.1)) && (leftHandData.gety() > (slideHandle.Y-0.1))){
+			if(slid && horizontal && (leftHandData.gety() < (slideHandle.Y + slideHandle.range/2)) && (leftHandData.gety() > (slideHandle.Y-slideHandle.range/2))){
 					printf("left hand change position");
 					slideHandle.prettyPicture.position.setx(leftHandData.getx());
 					slideHandle.X = leftHandData.getx();
-			}else if(slid && !horizontal && (leftHandData.getx()<(slideHandle.X + 0.1)) && (leftHandData.getx() > (slideHandle.X-0.1))){
+			}else if(slid && !horizontal && (leftHandData.getx()<(slideHandle.X + slideHandle.range/2)) && (leftHandData.getx() > (slideHandle.X-slideHandle.range/2))){
 					slideHandle.prettyPicture.position.sety(leftHandData.gety());
 					slideHandle.Y = leftHandData.gety();
 			}else{
 				slid = false;
 			}
 		}else{	//right hand most recent press
-			if(slid && horizontal && (rightHandData.gety()< (slideHandle.Y + 0.1)) && (rightHandData.gety() > (slideHandle.Y-0.1))){
+			if(slid && horizontal && (rightHandData.gety()< (slideHandle.Y + slideHandle.range/2)) && (rightHandData.gety() > (slideHandle.Y-slideHandle.range/2))){
 				slideHandle.prettyPicture.position.setx(rightHandData.getx());
 				slideHandle.X = rightHandData.getx();
-			}else if(slid && !horizontal && (rightHandData.getx()< (slideHandle.X + 0.1)) && (rightHandData.getx() > (slideHandle.X-0.1))){
+			}else if(slid && !horizontal && (rightHandData.getx()< (slideHandle.X + slideHandle.range/2)) && (rightHandData.getx() > (slideHandle.X-slideHandle.range/2))){
 					slideHandle.prettyPicture.position.sety(rightHandData.gety());
 					slideHandle.Y = rightHandData.gety();
 			}else {

@@ -38,16 +38,17 @@ void GestureManager::addRightHandData(vertex3 vertex){
 	if ( rightHandTrails.size()>10 ) rightHandTrails.erase( rightHandTrails.begin() );
 }
 
-void GestureManager::guessGesture( unsigned int index, float yMin, float zMax )
+void GestureManager::guessGesture( unsigned int index, float zMax )
 {
 	bool inRange;
 	if(index==0){
-		inRange = (yMin<leftHandTrails.back().y() && leftHandTrails.back().z()<zMax);
+		inRange = (leftHandTrails.back().z()<zMax);
 	}else{
-		inRange = (yMin<rightHandTrails.back().y() && rightHandTrails.back().z()<zMax);
+		inRange = (rightHandTrails.back().z()<zMax);
 	}
     if ( !inRange )
     {
+		if(index==1)
         holdGestureCount[index] = 0;
         swipeGestureCount[index] = 0;
     }
@@ -133,7 +134,6 @@ int GestureManager::buttonPressed(int index, float X, float Y, int numberFramesH
 		//printf("-------CurX = %f and CurY = %f", curX, curY);
 		//checks that hold is on button space!
 		 if(curY>(Y-threshold) && curY<(Y+threshold) && ( curX>(X-threshold) && curX<(X+threshold))){
-		
 			 if (holdGestureCount[1]>numberFramesHeld ){	//if hand is being held over a button, handle it
 				return 2;	
 			 }
@@ -177,4 +177,18 @@ vertex3 GestureManager::getCurrentHandData(int index){
 		return leftHandTrails.back();
 	else
 		return rightHandTrails.back();
+}
+
+void GestureManager::resetData(){
+	for(int i=0; i<2; i++){
+		holdGestureCount[i] = 0;
+		swipeGestureCount[i] = 0;
+	}
+	leftHandTrails.clear();
+	rightHandTrails.clear();
+
+	vertex3 defaultPoint = vertex3(0.0f, 0.0f, 0.0f);
+	addLeftHandData(defaultPoint);
+	addRightHandData(defaultPoint);
+
 }

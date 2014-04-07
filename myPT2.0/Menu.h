@@ -11,7 +11,7 @@ class MainMenu: public Frame{
 public:
 	MainMenu(): Frame(){
 		welcome = Button(0.5f, 0.666f, 0.1);
-		slider = Slider(true, 0.5f, 0.333f);
+		slider = Slider(true, 0.1f, 0.9f, 0.3333f);
 		interactions.push_back(&welcome);
 		interactions.push_back(&slider);
 		backgroundIDIndex = 1;
@@ -41,26 +41,30 @@ class TimeSinceMenu: public Frame{
 public:
 	TimeSinceMenu(): Frame(){
 		backgroundIDIndex = 7;
-		continueButton = Button(0.5, 0.5, 0.1);
-		timeSlider = Slider(true, 0.5, 0.7, 0.15, .85, .65);
-		interactions.push_back(&continueButton);
+		continueButton = ButtonWithTexture(0.5, 0.3, 0.2, 8);
+		timeSlider = Slider(true, 0.15, .85, .57);
 		interactions.push_back(&timeSlider);
-
+		continueAdded = false;
 	}
 
 	virtual void update(){
 		__super::update();
 
-		if(continueButton.pressed && timeSlider.slid){		
+		if(timeSlider.slid && !continueAdded){		
 			//SAVE PERCENTAGE!
 			//RUN ALGORITHM TO DETERMINE SYSTEM!
+			continueAdded = true;
+			interactions.push_back(&continueButton);
+		}
+		if(continueAdded && continueButton.pressed){
 			changeView(new DotSpot());
 		}
 	}
 
 protected:
-	Button continueButton;
+	ButtonWithTexture continueButton;
 	Slider timeSlider;
+	bool continueAdded;
 };
 
 #endif
@@ -103,8 +107,8 @@ class BehindKneeMenu: public Frame{
 public:
 	BehindKneeMenu(): Frame(){
 		backgroundIDIndex = 5;
-		yesButton = Button(0.7f, 0.5f, 0.1f);
-		noButton = Button(0.3f, 0.5f, 0.1f);
+		yesButton = Button(0.7f, 0.5f, 0.2f);
+		noButton = Button(0.3f, 0.5f, 0.2f);
 		interactions.push_back(&yesButton);
 		interactions.push_back(&noButton);
 
@@ -135,8 +139,8 @@ class ScarMenu: public Frame{
 public:
 	ScarMenu(): Frame(){
 		backgroundIDIndex = 4;
-		yesButton = Button(0.7f, 0.5f, 0.1f);
-		noButton = Button(0.3f, 0.5f, 0.1f);
+		yesButton = Button(0.7f, 0.5f, 0.2f);
+		noButton = Button(0.3f, 0.5f, 0.2f);
 		interactions.push_back(&yesButton);
 		interactions.push_back(&noButton);
 
@@ -168,25 +172,32 @@ class FeelingMenu: public Frame{
 public:
 	FeelingMenu(): Frame(){
 		backgroundIDIndex = 3;
-		continueButton = Button(0.5f, 0.5f, 0.1f);
-		feelingSlider = Slider(true, 0.5f, 0.7f, 0.15f, .85f, .65f);
-		interactions.push_back(&continueButton);
+		continueButton = ButtonWithTexture(0.5f, 0.5f, 0.2, 8);
+		feelingSlider = Slider(true, 0.15f, .85f, .65f);
 		interactions.push_back(&feelingSlider);
+		continueAdded = false;
 
 	}
 
 	virtual void update(){
 		__super::update();
 
-		if(continueButton.pressed && feelingSlider.slid){		
+		if(feelingSlider.slideHandle.pressed && !continueAdded){		
+			continueAdded = true;
+			interactions.push_back(&continueButton);
+		}
+
+		if(continueAdded && continueButton.pressed)
+		{
 			//SAVE PERCENTAGE!
 			changeView(new ScarMenu());
 		}
 	}
 
 protected:
-	Button continueButton;
+	ButtonWithTexture continueButton;
 	Slider feelingSlider;
+	bool continueAdded;
 };
 
 #endif

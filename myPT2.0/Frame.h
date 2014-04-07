@@ -33,6 +33,7 @@ public:
 	}
 
 	void changeView(Frame* nextFrame){
+		GestureManager::Inst()->resetData();
 		this->nextFrame = nextFrame;
 		viewUpdated = true;
 	}

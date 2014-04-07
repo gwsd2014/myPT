@@ -14,13 +14,13 @@ ViewManager* ViewManager::Inst()
 
 ViewManager::ViewManager()
 {
-	this->view = new LogoMenu();
+	this->view = new DotSpot();
 }
 
 void ViewManager::update(){
-	view->update();
 	if(this->view->viewUpdated)
 		changeView();
+	view->update();
 }
 
 void ViewManager::render(const unsigned int* objectTexIDs){
