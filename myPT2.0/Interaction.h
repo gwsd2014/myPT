@@ -83,8 +83,8 @@ public:
 
 	virtual void render(const unsigned int* objectTexIDs){
 		//printf("Rendering Button Interaction\n");
-		DotObject test(5, 0.02, X, Y);
-		test.render(objectTexIDs);
+		//DotObject test(5, 0.02, X, Y);
+		//test.render(objectTexIDs);
 		if(hover && leftHand){
 			vertex3 handData = GestureManager::Inst()->getCurrentHandData(0);
 			guide.position.setx(handData.getx());

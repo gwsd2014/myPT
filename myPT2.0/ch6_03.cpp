@@ -23,7 +23,7 @@ NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 
 //DotSpot etc.
 int numBackgrounds = 8;
-const static unsigned int backgroundTexIDs[8] = {8, 9, 10, 11, 12, 13, 14, 15};
+const static unsigned int backgroundTexIDs[8] = {100, 101, 102, 103, 104, 105, 106, 106};
 //array containing texture id's for game images
 //apple, orange, orange, checkmark, red guide, green guide, blue guide
 int numObjects = 9;

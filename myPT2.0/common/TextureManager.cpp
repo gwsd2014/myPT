@@ -121,6 +121,7 @@ bool TextureManager::UnloadTexture(const unsigned int texID)
 
 bool TextureManager::BindTexture(const unsigned int texID)
 {
+	printf("Texture being bound --------- %d\n", texID);
 	bool result(true);
 	//if this texture ID mapped, bind it's texture as current
 	if(m_texID.find(texID) != m_texID.end())

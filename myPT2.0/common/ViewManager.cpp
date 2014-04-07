@@ -14,7 +14,7 @@ ViewManager* ViewManager::Inst()
 
 ViewManager::ViewManager()
 {
-	this->view = new DotSpot();
+	this->view = new LogoMenu();
 }
 
 void ViewManager::update(){
