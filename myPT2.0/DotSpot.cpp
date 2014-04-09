@@ -1,6 +1,6 @@
 #include "DotSpot.h"
 
-DotSpot::DotSpot(): Frame(){
+DotSpot::DotSpot(): Game(){
 		//create donuts
 		donuts.push_back(DotObject(0, 0.1f, 0.25f, 0.2f));
 		donuts.push_back(DotObject(1, 0.1f,  0.45f, 0.2f));
@@ -16,6 +16,28 @@ DotSpot::DotSpot(): Frame(){
 		exit = Button(0.95f, 0.95f, 0.1f, 25);
 		interactions.push_back(&restart);
 		interactions.push_back(&exit);
+		framesBetweenSquats = 200;
+}
+
+DotSpot::DotSpot(int difficulty, Frame* goBack) : Game(difficulty, goBack){
+		//create donuts
+		donuts.push_back(DotObject(0, 0.1f, 0.25f, 0.2f));
+		donuts.push_back(DotObject(1, 0.1f,  0.45f, 0.2f));
+		donuts.push_back(DotObject(2, 0.1f,  0.66f, 0.2f));
+
+		shuffleDots();
+
+		guide = DotObject(6, (GLfloat)0.04f, (GLfloat)0.0f, (GLfloat)0.0f);
+		checkMark = DotObject(3, (GLfloat)0.4, (GLfloat)0.3f, (GLfloat)0.3f);
+		backgroundIDIndex = 0;
+
+		restart = Button(0.05f, 0.95f, 0.1f, 25);
+		exit = Button(0.95f, 0.95f, 0.1f, 25);
+		interactions.push_back(&restart);
+		interactions.push_back(&exit);
+		//SET DIFFICULTY PARAMETERS!
+		//like this one!
+		framesBetweenSquats = 200;
 }
 
 void DotSpot::shuffleDots(){
@@ -27,6 +49,11 @@ void DotSpot::shuffleDots(){
 			leftHand = true;
 		else 
 			leftHand = false;
+
+		if(rand()% 2 == 0)
+			leftLeg = true;
+		else 
+			leftLeg = false;
 		//printf("Hot donut is %d\n", hotDonut);
 		switch (hotDonut)
 		{
@@ -67,7 +94,7 @@ void DotSpot::shuffleDots(){
 void DotSpot::timer(int value){
 		//This determines speed
 		//Which in turn determines difficulty
-		if(value%200 == 0){
+	if(value%framesBetweenSquats == 0){
 			shuffleDots();
 		}
 }
@@ -90,9 +117,22 @@ void DotSpot::render(const unsigned int* objectTexIDs){
 	//this renders all interactions if there are any that require rendering
 	__super::render(objectTexIDs);
 
-	//string.clear();
-	//string << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
+	//render Text
+	 std::stringstream ss;
+	 ss << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
+	    
+    glRasterPos2f( 0.01f, 0.01f );
+    glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );		//WHITE TEXT
+    glutBitmapString( GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)ss.str().c_str() );
+}
 
+bool DotSpot::correctForm(){
+	vertex3 hipData = GestureManager::Inst()->getCurrentData(2);
+	vertex3 spineData = GestureManager::Inst()->getCurrentData(3);
+	//if shoulders are over hips
+	if(spineData.gety() < hipData.gety()){
+		return false;
+	}
 }
 
 void DotSpot::update(){
@@ -106,12 +146,14 @@ void DotSpot::update(){
 	}
 	if(exit.pressed)
 		 glutLeaveMainLoop();
-
+	if(score > 30){
+		changeView(goBack);
+	}
 
 	if(leftHand){
-		guide.position = GestureManager::Inst()->getCurrentHandData(0);
+		guide.position = GestureManager::Inst()->getCurrentData(0);
 	}else{
-		guide.position = GestureManager::Inst()->getCurrentHandData(1);
+		guide.position = GestureManager::Inst()->getCurrentData(1);
 	}
 
 	// Update fruit objects and intersections with the hands	

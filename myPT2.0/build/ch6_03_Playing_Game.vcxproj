@@ -119,6 +119,7 @@
     <ClInclude Include="..\common\TextureManager.h" />
     <ClInclude Include="..\DotSpot.h" />
     <ClInclude Include="..\Frame.h" />
+    <ClInclude Include="..\MazeRaceGame.h" />
     <ClInclude Include="..\Menu.h" />
     <ClInclude Include="DotObject.h" />
   </ItemGroup>
@@ -132,6 +133,8 @@
     </ClCompile>
     <ClCompile Include="..\common\ViewManager.cpp" />
     <ClCompile Include="..\DotSpot.cpp" />
+    <ClCompile Include="..\MazeRaceGame.cpp" />
+    <ClCompile Include="..\Menu.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

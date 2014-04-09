@@ -22,16 +22,20 @@ TextureObject* playerDepthTexture = NULL;
 NUI_TRANSFORM_SMOOTH_PARAMETERS smoothParams;
 
 //DotSpot etc.
-int numBackgrounds = 8;
-const static unsigned int backgroundTexIDs[8] = {100, 101, 102, 103, 104, 105, 106, 106};
+int numBackgrounds = 9;
+const static unsigned int backgroundTexIDs[9] = {100, 101, 102, 103, 104, 105, 106, 107, 108};
 //array containing texture id's for game images
 //apple, orange, orange, checkmark, red guide, green guide, blue guide
-int numObjects = 9;
-const static unsigned int objectTexIDs[9] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+int numObjects = 23;
+const static unsigned int objectTexIDs[23] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
 const unsigned int gameOverTexID = 6;
 
 // frame index
 int g_frameIndex = 0;
+
+float posX, posZ;
+float dirX, dirZ;
+float angle;
 
 float randomValue( float min, float max )
 {
@@ -40,10 +44,6 @@ float randomValue( float min, float max )
 
 bool initializeKinect()
 {
-	NuiCameraElevationSetAngle(0);
-	NuiCameraElevationSetAngle(32);
-	NuiCameraElevationSetAngle(0);
-
     int numKinects = 0;
     HRESULT hr = NuiGetSensorCount( &numKinects );
     if ( FAILED(hr) || numKinects<=0 )
@@ -177,8 +177,11 @@ void updateSkeletonData( NUI_SKELETON_DATA& data )
 			//if(!leftHand) guide.position = vertex;
         }
 
-		else if(i==NUI_SKELETON_POSITION_FOOT_LEFT || i== NUI_SKELETON_POSITION_FOOT_RIGHT){
+		else if(i==NUI_SKELETON_POSITION_FOOT_LEFT) {
+			
+		}else if(i== NUI_SKELETON_POSITION_FOOT_RIGHT){
 			//add checks to make sure the user is in the correct spot
+
 		}
     }
     //must be capable of handling buttons in some way...
@@ -226,13 +229,16 @@ void render()
     glClear( GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT );
     glEnable( GL_TEXTURE_2D );
     
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    glOrtho( 0.0, 1.0, 0.0, 1.0, -1.0, 1.0 );
-    
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-    
+	if(!ViewManager::Inst()->is3D()){
+		glMatrixMode( GL_PROJECTION );
+		glLoadIdentity();
+		glOrtho( 0.0, 1.0, 0.0, 1.0, -1.0, 1.0 );
+	}
+
+	glMatrixMode( GL_MODELVIEW );
+	glLoadIdentity();
+	//gluLookAt();
+
     // Draw background quad
     GLfloat vertices[][3] = {
         { 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f },
@@ -261,7 +267,16 @@ void render()
     glBindTexture( GL_TEXTURE_2D, playerDepthTexture->id );
     drawSimpleMesh( WITH_POSITION|WITH_TEXCOORD, 4, meshData, GL_QUADS );
     
-	ViewManager::Inst()->render(objectTexIDs);	
+	if(!ViewManager::Inst()->is3D()){
+		GLfloat lightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f};
+		GLfloat lightAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f};
+		GLfloat lightPosition[] = { 0.0, 200.0, 200.0, 1.0f};
+
+ 		glLightfv( GL_LIGHT0, GL_POSITION, lightPosition );
+		glLightfv( GL_LIGHT0, GL_AMBIENT, lightAmbient );
+		glLightfv( GL_LIGHT0, GL_DIFFUSE, lightDiffuse );
+		ViewManager::Inst()->render(objectTexIDs);	
+	}
     
     // Blend with hand trails
     glDisable( GL_TEXTURE_2D );
@@ -274,6 +289,20 @@ void render()
 	drawSimpleMesh( WITH_POSITION|WITH_COLOR, GestureManager::Inst()->getTrailsSize(1), rightHandData, GL_LINE_STRIP );
     
     glDisable( GL_BLEND );
+
+	if(ViewManager::Inst()->is3D()){
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+
+		glEnable(GL_LIGHTING); //Enable lighting
+		glEnable(GL_LIGHT0); //Enable light #0
+		glEnable(GL_LIGHT1); //Enable light #1
+		glEnable(GL_NORMALIZE); //Have OpenGL automatically normalize our normals
+		 gluLookAt(posX, 0.0, posZ, 
+			  posX + dirX, 0.0, posZ + dirZ,
+		      0.0, 1.0, 0.0);
+		ViewManager::Inst()->render(objectTexIDs);
+	}
 	
     // Draw HUD text
 	LONG temp;
@@ -293,14 +322,40 @@ void render()
 void reshape( int w, int h )
 {
     glViewport( 0, 0, w, h );
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	gluPerspective(70.0, (GLfloat)w/(GLfloat)h, 1.0, 1000.0);
 }
 
 void keyEvents( unsigned char key, int x, int y )
 {
+	printf("posX -- %f, posZ -- %f, dirX --%f, dirZ -- %f\n", posX, posZ, dirX, dirZ);
     switch ( key )
     {
-    case 27: case 'Q': case 'q':
-        glutLeaveMainLoop();
+		 case 'w' : //move camera in, move towards
+			 //should be if NOT collision
+			posZ += dirZ * .02;
+				//posX += dirX * step;
+		break;
+		case 'z' : //move camera in, move towards
+			 //should be if NOT collision
+			posZ -= dirZ * .02;
+				//posX += dirX * step;
+		break;
+
+		 case 'a' : //turn camera left
+			 angle -= 0.05f;
+			 dirX = sin(angle);
+			 dirZ = -cos(angle);
+		 //angle += (PI / 180.0f) * .1;
+		 break;
+		 case 's' : //turn camera right
+			 angle += 0.05f;
+			 dirX = sin(angle);
+			 dirZ = -cos(angle);
+		 break;
+		case 27: case 'Q': case 'q':
+		  glutLeaveMainLoop();
         return;
     }
     glutPostRedisplay();
@@ -328,7 +383,6 @@ bool initTextures(){
         ss << "Background" << i << ".jpg";
 		if ( TextureManager::Inst()->LoadTexture(ss.str().c_str(), backgroundTexIDs[i], GL_BGR_EXT) )
 		{
-			printf("Background Texture opened succesfully\n\n");
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		} else return false;
@@ -362,7 +416,13 @@ int main( int argc, char** argv )
 
     glutReshapeFunc( reshape );
     glutKeyboardFunc( keyEvents );
-	glutTimerFunc( 16, timer, 0 );
+	glutTimerFunc( 16, timer, 0);
+
+	posX = 0.0;
+	posZ = 10.0;
+	dirX = 0.0;
+	dirZ = 0.0;
+	angle = 0.0;
 
 	if(!initTextures()){
 		printf("Texture failed to load");

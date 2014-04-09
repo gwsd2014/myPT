@@ -7,9 +7,10 @@
 #include "common/GestureManager.h"
 #include "Frame.h"
 
-class DotSpot: public Frame{
+class DotSpot: public Game{
 public:
 	DotSpot();
+	DotSpot(int difficulty, Frame* goBack);
 
 	virtual void timer(int value);
 
@@ -19,6 +20,7 @@ public:
 	
 private:
 	void shuffleDots();
+	bool correctForm();
 
 	//MEMBER DATA
 	//game globals
@@ -26,6 +28,9 @@ private:
 	bool shuffled;
 	bool leftHand; //true for left, false if right;
 	int score, life;
+	int phase, difficulty;
+	int framesBetweenSquats;
+	bool singleLeg, leftLeg;
 	Button restart;
 	Button exit;
 

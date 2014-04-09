@@ -5,31 +5,18 @@
 #include "Frame.h"
 #include "Interaction.h"
 #include "DotSpot.h"
+#include "MazeRaceGame.h"
 
 class MainMenu: public Frame{
-
-public:
-	MainMenu(): Frame(){
-		welcome = Button(0.5f, 0.666f, 0.1);
-		slider = Slider(true, 0.1f, 0.9f, 0.3333f);
-		interactions.push_back(&welcome);
-		interactions.push_back(&slider);
-		backgroundIDIndex = 1;
-	}
-
-	virtual void update(){
-		__super::update();
-
-		if(welcome.pressed){		
-			changeView(new DotSpot());
-		}
-		if(slider.slid){
-			
-		}
-	}
-protected:
-	Button welcome;
-	Slider slider;
+	public:
+		MainMenu();
+		virtual void update();
+	protected:
+		ButtonWithTexture dotSpotButton;
+		ButtonWithTexture mazeRaceButton;
+		Slider slider;
+		DotObject phase;
+		DotObject difficulty;
 };
 
 #endif
@@ -39,27 +26,9 @@ protected:
 #define TimeSinceMenu_H
 class TimeSinceMenu: public Frame{
 public:
-	TimeSinceMenu(): Frame(){
-		backgroundIDIndex = 7;
-		continueButton = ButtonWithTexture(0.5, 0.3, 0.2, 8);
-		timeSlider = Slider(true, 0.15, .85, .57);
-		interactions.push_back(&timeSlider);
-		continueAdded = false;
-	}
+	TimeSinceMenu();
 
-	virtual void update(){
-		__super::update();
-
-		if(timeSlider.slid && !continueAdded){		
-			//SAVE PERCENTAGE!
-			//RUN ALGORITHM TO DETERMINE SYSTEM!
-			continueAdded = true;
-			interactions.push_back(&continueButton);
-		}
-		if(continueAdded && continueButton.pressed){
-			changeView(new DotSpot());
-		}
-	}
+	virtual void update();
 
 protected:
 	ButtonWithTexture continueButton;
@@ -74,25 +43,9 @@ protected:
 #define MeniscusMenu_H
 class MeniscusMenu: public Frame{
 public:
-	MeniscusMenu(): Frame(){
-		backgroundIDIndex = 6;
-		yesButton = Button(0.7, 0.5, 0.1);
-		noButton = Button(0.3, 0.5, 0.1);
-		interactions.push_back(&yesButton);
-		interactions.push_back(&noButton);
+	MeniscusMenu();
 
-	}
-
-	virtual void update(){
-		__super::update();
-
-		if(yesButton.pressed){		
-			//SAVE ANSWER!
-			changeView(new TimeSinceMenu());
-		}else if(noButton.pressed){
-			changeView(new TimeSinceMenu());
-		}
-	}
+	virtual void update();
 
 protected:
 	Button yesButton;
@@ -105,26 +58,9 @@ protected:
 #define BehindKneeMenu_H
 class BehindKneeMenu: public Frame{
 public:
-	BehindKneeMenu(): Frame(){
-		backgroundIDIndex = 5;
-		yesButton = Button(0.7f, 0.5f, 0.2f);
-		noButton = Button(0.3f, 0.5f, 0.2f);
-		interactions.push_back(&yesButton);
-		interactions.push_back(&noButton);
+	BehindKneeMenu();
 
-	}
-
-	virtual void update(){
-		__super::update();
-
-		if(yesButton.pressed){		
-			//SAVE ANSWER!
-			changeView(new MeniscusMenu());
-		}else if(noButton.pressed){
-			changeView(new MeniscusMenu());
-		}
-	}
-
+	virtual void update();
 protected:
 	Button yesButton;
 	Button noButton;
@@ -137,25 +73,9 @@ protected:
 #define ScarMenu_H
 class ScarMenu: public Frame{
 public:
-	ScarMenu(): Frame(){
-		backgroundIDIndex = 4;
-		yesButton = Button(0.7f, 0.5f, 0.2f);
-		noButton = Button(0.3f, 0.5f, 0.2f);
-		interactions.push_back(&yesButton);
-		interactions.push_back(&noButton);
+	ScarMenu();
 
-	}
-
-	virtual void update(){
-		__super::update();
-
-		if(yesButton.pressed){		
-			//SAVE ANSWER!
-			changeView(new BehindKneeMenu());
-		}else if(noButton.pressed){
-			changeView(new BehindKneeMenu());
-		}
-	}
+	virtual void update();
 
 protected:
 	Button yesButton;
@@ -170,29 +90,9 @@ protected:
 #define FeelingMenu_H
 class FeelingMenu: public Frame{
 public:
-	FeelingMenu(): Frame(){
-		backgroundIDIndex = 3;
-		continueButton = ButtonWithTexture(0.5f, 0.5f, 0.2, 8);
-		feelingSlider = Slider(true, 0.15f, .85f, .65f);
-		interactions.push_back(&feelingSlider);
-		continueAdded = false;
+	FeelingMenu();
 
-	}
-
-	virtual void update(){
-		__super::update();
-
-		if(feelingSlider.slideHandle.pressed && !continueAdded){		
-			continueAdded = true;
-			interactions.push_back(&continueButton);
-		}
-
-		if(continueAdded && continueButton.pressed)
-		{
-			//SAVE PERCENTAGE!
-			changeView(new ScarMenu());
-		}
-	}
+	virtual void update();
 
 protected:
 	ButtonWithTexture continueButton;
@@ -207,19 +107,9 @@ protected:
 #define ContinueMenu_H
 class ContinueMenu: public Frame{
 public:
-	ContinueMenu(): Frame(){
-		backgroundIDIndex = 2;
-		continueButton = Button(0.5f, 0.8f, 0.2f);
-		interactions.push_back(&continueButton);
-	}
+	ContinueMenu();
 
-	virtual void update(){
-		__super::update();
-
-		if(continueButton.pressed){		
-			changeView(new FeelingMenu());
-		}
-	}
+	virtual void update();
 
 protected:
 	Button continueButton;
@@ -234,20 +124,9 @@ protected:
 
 class LogoMenu: public Frame{
 public:
-	LogoMenu(): Frame(){
-		backgroundIDIndex = 1;
-		clickAnywhere = Button(0.5f, 0.5f, 1.0f);
-		interactions.push_back(&clickAnywhere);
-	}
+	LogoMenu();
 
-	virtual void update(){
-		__super::update();
-
-		if(clickAnywhere.pressed){		
-			ContinueMenu* contMenu = new ContinueMenu();
-			changeView(contMenu);
-		}
-	}
+	virtual void update();
 
 protected:
 	Button clickAnywhere;

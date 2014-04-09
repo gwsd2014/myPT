@@ -19,6 +19,7 @@
     <ClInclude Include="..\Interaction.h" />
     <ClInclude Include="..\Menu.h" />
     <ClInclude Include="..\common\ViewManager.h" />
+    <ClInclude Include="..\MazeRaceGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ch6_03.cpp" />
@@ -31,5 +32,7 @@
     <ClCompile Include="..\common\GestureManager.cpp" />
     <ClCompile Include="..\DotSpot.cpp" />
     <ClCompile Include="..\common\ViewManager.cpp" />
+    <ClCompile Include="..\MazeRaceGame.cpp" />
+    <ClCompile Include="..\Menu.cpp" />
   </ItemGroup>
 </Project>

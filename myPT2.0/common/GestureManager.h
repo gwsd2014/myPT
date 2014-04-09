@@ -16,18 +16,25 @@ class GestureManager{
 		void guessGesture( unsigned int index,float zMax );
 		void addLeftHandData(vertex3 vertex);
 		void addRightHandData(vertex3 vertex);
+		void addData(int index, vertex3 vertex);
 		float distance(int index, vertex3 vertex);
 		VertexData convertToMesh(int index);
 		int getTrailsSize(int index);
 		bool buttonHover(int index, float X, float Y, float threshold);
 		int buttonPressed(int index, float X, float Y, int numFramesHeld, float threshold);
-		vertex3 getCurrentHandData(int index);
+		vertex3 getCurrentData(int index);
 		void resetData();
 
 	protected:
 		static GestureManager* m_inst;
 		std::vector<vertex3> leftHandTrails;
 		std::vector<vertex3> rightHandTrails;
+
+		std::vector<vertex3> leftFootTrails;
+		std::vector<vertex3> rightFootTrails;
+
+		std::vector<vertex3> spineTrails;
+		std::vector<vertex3> hipTrails;
 
 		unsigned int holdGestureCount[2];
 		unsigned int swipeGestureCount[2];

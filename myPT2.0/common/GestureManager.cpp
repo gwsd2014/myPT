@@ -38,12 +38,41 @@ void GestureManager::addRightHandData(vertex3 vertex){
 	if ( rightHandTrails.size()>10 ) rightHandTrails.erase( rightHandTrails.begin() );
 }
 
+void GestureManager::addData(int index, vertex3 vertex){
+	switch(index){
+		case 0:
+			leftHandTrails.push_back(vertex);
+			if ( leftHandTrails.size()>10 ) leftHandTrails.erase( leftHandTrails.begin() );
+		break;
+		case 1:
+			rightHandTrails.push_back(vertex);
+			if ( rightHandTrails.size()>10 ) rightHandTrails.erase( rightHandTrails.begin() );
+		break;
+		case 2:
+			spineTrails.push_back(vertex);
+			if ( spineTrails.size()>5 ) spineTrails.erase( spineTrails.begin() );
+		break;
+		case 3:
+			hipTrails.push_back(vertex);
+			if ( hipTrails.size()>5 ) hipTrails.erase( hipTrails.begin() );
+		break;
+		case 4:
+			leftFootTrails.push_back(vertex);
+			if ( leftFootTrails.size()>10 ) leftFootTrails.erase( leftFootTrails.begin() );
+		break;
+		case 5:
+			rightFootTrails.push_back(vertex);
+			if ( rightFootTrails.size()>10 ) rightFootTrails.erase( rightFootTrails.begin() );
+		break;
+	}
+}
+
 void GestureManager::guessGesture( unsigned int index, float zMax )
 {
 	bool inRange;
 	if(index==0){
 		inRange = (leftHandTrails.back().z()<zMax);
-	}else{
+	}else if(index==1){
 		inRange = (rightHandTrails.back().z()<zMax);
 	}
     if ( !inRange )
@@ -62,7 +91,7 @@ void GestureManager::guessGesture( unsigned int index, float zMax )
             distance = sqrt(powf(currentX-leftHandTrails.front().x(), 2.0f)
                           + powf(currentY-leftHandTrails.front().y(), 2.0f));
         }
-        else  // right hand
+        else if(index ==1) // right hand
         {
             currentX = rightHandTrails.back().getx();
             currentY = rightHandTrails.back().gety();
@@ -148,7 +177,7 @@ float GestureManager::distance(int index, vertex3 vertex){
 	if(index == 0){
 		distance = sqrt(powf(vertex.x()-leftHandTrails.back().x(), 2.0f)
 					+ powf(vertex.y()-leftHandTrails.back().y(), 2.0f));
-	}else{
+	}else if(index ==1){
 		distance = sqrt(powf(vertex.x()-rightHandTrails.back().x(), 2.0f)
 					+ powf(vertex.y()-rightHandTrails.back().y(), 2.0f));
 	}
@@ -159,7 +188,7 @@ VertexData GestureManager::convertToMesh(int index){
 	if(index ==0){
 		VertexData leftHandData = {&(leftHandTrails[0].x()), NULL, &(trailColors[0][0]), NULL };
 		return leftHandData;
-	}else{
+	}else if(index ==1){
 		VertexData rightHandData = {&(rightHandTrails[0].x()), NULL, &(trailColors[0][0]), NULL };
 		return rightHandData;
 	}
@@ -168,15 +197,23 @@ VertexData GestureManager::convertToMesh(int index){
 int GestureManager::getTrailsSize(int index){
 	if(index ==0)
 		return leftHandTrails.size();
-	else
+	else if(index==1)
 		return rightHandTrails.size();
 }
 
-vertex3 GestureManager::getCurrentHandData(int index){
+vertex3 GestureManager::getCurrentData(int index){
 	if(index == 0)
 		return leftHandTrails.back();
-	else
+	else if(index ==1)
 		return rightHandTrails.back();
+	else if(index ==2)
+		return spineTrails.back();
+	else if(index ==3)
+		return hipTrails.back();
+	else if(index ==4)
+		return leftFootTrails.back();
+	else if(index == 5)
+		return rightFootTrails.back();
 }
 
 void GestureManager::resetData(){
@@ -190,5 +227,4 @@ void GestureManager::resetData(){
 	vertex3 defaultPoint = vertex3(0.0f, 0.0f, 0.0f);
 	addLeftHandData(defaultPoint);
 	addRightHandData(defaultPoint);
-
 }

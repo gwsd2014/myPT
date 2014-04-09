@@ -14,6 +14,7 @@ ViewManager* ViewManager::Inst()
 
 ViewManager::ViewManager()
 {
+	this->positionZ = -10.0;
 	this->view = new LogoMenu();
 }
 
@@ -37,4 +38,8 @@ unsigned int ViewManager::getBkgIndex(){
 
 void ViewManager::changeView(){
 	this->view = view->nextFrame;
+}
+
+bool ViewManager::is3D(){
+	return this->view->threeD;
 }

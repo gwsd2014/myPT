@@ -86,12 +86,12 @@ public:
 		//DotObject test(5, 0.02, X, Y);
 		//test.render(objectTexIDs);
 		if(hover && leftHand){
-			vertex3 handData = GestureManager::Inst()->getCurrentHandData(0);
+			vertex3 handData = GestureManager::Inst()->getCurrentData(0);
 			guide.position.setx(handData.getx());
 			guide.position.sety(handData.gety());
 			guide.render(objectTexIDs);
 		} else if(hover && !leftHand){
-			vertex3 handData = GestureManager::Inst()->getCurrentHandData(1);
+			vertex3 handData = GestureManager::Inst()->getCurrentData(1);
 			guide.position.setx(handData.getx());
 			guide.position.sety(handData.gety());
 			guide.render(objectTexIDs);
@@ -155,7 +155,6 @@ public:
 		//dont use this
 		pressed = false;
 		leftHand = false;
-		range = 0.1f;
 		hover = false;
 	}
 
@@ -190,12 +189,12 @@ public:
 		DotObject test(5, 0.02, X, Y);
 		test.render(objectTexIDs);
 		if(hover && leftHand){
-			vertex3 handData = GestureManager::Inst()->getCurrentHandData(0);
+			vertex3 handData = GestureManager::Inst()->getCurrentData(0);
 			guide.position.setx(handData.getx());
 			guide.position.sety(handData.gety());
 			guide.render(objectTexIDs);
 		} else if(hover && !leftHand){
-			vertex3 handData = GestureManager::Inst()->getCurrentHandData(1);
+			vertex3 handData = GestureManager::Inst()->getCurrentData(1);
 			guide.position.setx(handData.getx());
 			guide.position.sety(handData.gety());
 			guide.render(objectTexIDs);
@@ -238,6 +237,7 @@ public:
 
 #endif
 
+
 #ifndef Slider_H
 #define Slider_H
 class Slider: public Interaction{
@@ -279,8 +279,8 @@ public:
 
 	virtual void handleInteraction(){
 		slideHandle.handleInteraction();
-		vertex3 leftHandData = GestureManager::Inst()->getCurrentHandData(0);
-		vertex3 rightHandData = GestureManager::Inst()->getCurrentHandData(1);
+		vertex3 leftHandData = GestureManager::Inst()->getCurrentData(0);
+		vertex3 rightHandData = GestureManager::Inst()->getCurrentData(1);
 
 		if(slideHandle.pressed && slideHandle.hover){
 			slid = true;

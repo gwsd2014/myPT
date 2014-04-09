@@ -14,9 +14,11 @@ public:
 	vector<Interaction*> interactions;
 	bool viewUpdated;
 	Frame* nextFrame;
+	bool threeD;
 	Frame(){
 		string << " ";
 		viewUpdated = false;
+		threeD = false;
 	}
 	~Frame(){}
 	virtual void render(const unsigned int* objectTexIDs){
@@ -41,6 +43,26 @@ public:
 	virtual void timer(int value){
 		//printf("I do something!");
 	}
+};
+
+#endif
+
+#ifndef Game_H
+#define Game_H
+
+class Game: public Frame{
+public:
+	Game() : Frame(){
+		difficulty = 0;
+	}
+
+	Game(int difficulty, Frame* goBack) : Frame(){
+		this->difficulty = difficulty;
+		this->goBack = goBack;
+	}
+
+	int difficulty;
+	Frame* goBack;
 };
 
 #endif
