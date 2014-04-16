@@ -15,9 +15,8 @@ GestureManager* GestureManager::Inst()
 GestureManager::GestureManager()
 {
 	vertex3 defaultPoint = vertex3(0.0f, 0.0f, 0.0f);
-	addLeftHandData(defaultPoint);
-	addRightHandData(defaultPoint);
-
+	for(int i=0; i<6; i++)
+		addData(i, defaultPoint);
 
 	for ( int i=0; i<20; ++i )
     {
@@ -67,6 +66,13 @@ void GestureManager::addData(int index, vertex3 vertex){
 	}
 }
 
+bool GestureManager::isStill(unsigned int index, int numFramesHeld){
+	if(holdGestureCount[index] > numFramesHeld)
+		return true;
+	else
+		return false;
+}
+
 void GestureManager::guessGesture( unsigned int index, float zMax )
 {
 	bool inRange;
@@ -97,6 +103,32 @@ void GestureManager::guessGesture( unsigned int index, float zMax )
             currentY = rightHandTrails.back().gety();
             distance = sqrt(powf(currentX-rightHandTrails.front().x(), 2.0f)
                           + powf(currentY-rightHandTrails.front().y(), 2.0f));
+        } else if ( index==2 )  // spine
+        {
+            currentX = spineTrails.back().x();
+            currentY = spineTrails.back().y();
+            distance = sqrt(powf(currentX-spineTrails.front().x(), 2.0f)
+                          + powf(currentY-spineTrails.front().y(), 2.0f));
+        }
+        else if(index == 3) // hip
+        {
+            currentX = hipTrails.back().getx();
+            currentY = hipTrails.back().gety();
+            distance = sqrt(powf(currentX-hipTrails.front().x(), 2.0f)
+                          + powf(currentY-hipTrails.front().y(), 2.0f));
+        } else if ( index==4 )  // left foot
+        {
+            currentX = leftFootTrails.back().x();
+            currentY = leftFootTrails.back().y();
+            distance = sqrt(powf(currentX-leftFootTrails.front().x(), 2.0f)
+                          + powf(currentY-leftFootTrails.front().y(), 2.0f));
+        }
+		else if(index == 5) // right foot
+        {
+            currentX = rightFootTrails.back().getx();
+            currentY = rightFootTrails.back().gety();
+            distance = sqrt(powf(currentX-rightFootTrails.front().x(), 2.0f)
+                          + powf(currentY-rightFootTrails.front().y(), 2.0f));
         }
         
         if ( distance<0.02 )	// IF hand has not moved
@@ -115,16 +147,6 @@ void GestureManager::guessGesture( unsigned int index, float zMax )
             swipeGestureCount[index] = 0;
         }
         
-        if ( holdGestureCount[index]>20 )	//if hand is being held over a button, handle it
-        {
-			//deprecated!
-			//check all Button interactions...
-			//if ( currentY>0.9f && currentX<0.1f )  // Restart
-			//{ score = 0; life = 100; }
-			//else if ( currentY>0.9f && currentX>0.9f )  // Exit
-			//glutLeaveMainLoop();
-			//printf("Current X is %f and Current Y is %f\n", rightHandTrails.back().getx(), rightHandTrails.back().gety());
-        }
     }
 }
 

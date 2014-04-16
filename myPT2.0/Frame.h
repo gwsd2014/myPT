@@ -29,6 +29,7 @@ public:
 
 	virtual void update(){
 		//might cause problems
+		viewUpdated = false;
 		for(int i=0; i<interactions.size(); i++){
 			interactions.at(i)->handleInteraction();
 		}

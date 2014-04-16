@@ -15,7 +15,7 @@ ViewManager* ViewManager::Inst()
 ViewManager::ViewManager()
 {
 	this->positionZ = -10.0;
-	this->view = new LogoMenu();
+	this->view = new MainMenu();
 }
 
 void ViewManager::update(){

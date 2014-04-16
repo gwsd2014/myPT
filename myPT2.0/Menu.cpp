@@ -1,29 +1,43 @@
 #include "Menu.h"
 
 MainMenu::MainMenu(): Frame(){
-		dotSpotButton = ButtonWithTexture(0.2f, 0.4f, 0.2, 10);
-		mazeRaceButton = ButtonWithTexture(0.2, 0.1f, 0.2, 9);
+		button1PressedOnce = false;
+		button2PressedOnce = false;
+		dotSpotButton = ButtonWithTexture(0.4f, 0.4f, 0.35, 10);
+		mazeRaceButton = ButtonWithTexture(0.4, 0.2f, 0.35, 9);
 		interactions.push_back(&dotSpotButton);
 		interactions.push_back(&mazeRaceButton);
 		backgroundIDIndex = 8;
-		phase = DotObject( 17, .25, 0.6, 0.85);
+		phase = DotObject( 17, .28, 0.48, 0.7);
+		difficulty = DotObject(12, .14, 0.6, 0.34);
+		difficulty2 = DotObject(11, .14, 0.6, 0.14);
 	}
 
 	void MainMenu::update(){
+
 		__super::update();
 
-		if(dotSpotButton.pressed){
+		if(dotSpotButton.pressed && !button1PressedOnce){
 			dotSpotButton.prettyPicture.objectIDIndex = 24;
-			changeView(new DotSpot());
+			button1PressedOnce = true;
+			changeView(new DotSpot(3, (Frame*)this));
 		}
-		if(mazeRaceButton.pressed){
+		if(mazeRaceButton.pressed && !button2PressedOnce){
+			button2PressedOnce = true;
 			mazeRaceButton.prettyPicture.objectIDIndex = 23;
 			changeView(new MazeRaceGame());
 		}
 
-		if(dotSpotButton.pressed && mazeRaceButton.pressed){
+		if(dotSpotButton.pressed && button1PressedOnce && button2PressedOnce && mazeRaceButton.pressed){
 			changeView(new LogoMenu());
 		}
+	}
+
+	void MainMenu::render(const unsigned int* objectTexIDs){
+		__super::render(objectTexIDs);
+		phase.render(objectTexIDs);
+		difficulty.render(objectTexIDs);
+		difficulty2.render(objectTexIDs);
 	}
 
 
@@ -45,7 +59,7 @@ MainMenu::MainMenu(): Frame(){
 			interactions.push_back(&continueButton);
 		}
 		if(continueAdded && continueButton.pressed){
-			changeView(new DotSpot());
+			changeView(new MainMenu());
 		}
 	}
 
@@ -55,7 +69,6 @@ MainMenu::MainMenu(): Frame(){
 		noButton = Button(0.3, 0.5, 0.1);
 		interactions.push_back(&yesButton);
 		interactions.push_back(&noButton);
-
 	}
 
 	void MeniscusMenu::update(){
@@ -150,7 +163,7 @@ MainMenu::MainMenu(): Frame(){
 
 	LogoMenu::LogoMenu(): Frame(){
 		backgroundIDIndex = 1;
-		clickAnywhere = Button(0.5f, 0.5f, 1.0f);
+		clickAnywhere = Button(0.5f, 0.5f, 1.0f, 40);
 		interactions.push_back(&clickAnywhere);
 	}
 

@@ -26,8 +26,8 @@ int numBackgrounds = 9;
 const static unsigned int backgroundTexIDs[9] = {100, 101, 102, 103, 104, 105, 106, 107, 108};
 //array containing texture id's for game images
 //apple, orange, orange, checkmark, red guide, green guide, blue guide
-int numObjects = 23;
-const static unsigned int objectTexIDs[23] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
+int numObjects = 31;
+const static unsigned int objectTexIDs[31] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
 const unsigned int gameOverTexID = 6;
 
 // frame index
@@ -160,28 +160,26 @@ void updateSkeletonData( NUI_SKELETON_DATA& data )
         vertex.y() = 1.0f - (GLfloat)coordInDepth.y / 480.0f;
         vertex.z() = (GLfloat)NuiDepthPixelToDepth(depth) * 0.00025f;
         
-        if ( i==NUI_SKELETON_POSITION_SPINE )
-        {
+        if ( i==NUI_SKELETON_POSITION_SPINE ){
             yMin = vertex.y();
             zMax = vertex.z();
-        }
-        else if ( i==NUI_SKELETON_POSITION_HAND_LEFT )
-        {
+		} else if(i == NUI_SKELETON_POSITION_SHOULDER_CENTER){
+			GestureManager::Inst()->addData(2, vertex);	
+		}else if( i == NUI_SKELETON_POSITION_HIP_CENTER){
+			GestureManager::Inst()->addData(3, vertex);
+
+		} else if ( i==NUI_SKELETON_POSITION_HAND_LEFT ){
 			//pass data to gesture manager
 			GestureManager::Inst()->addLeftHandData(vertex);
 			//if(leftHand) guide.position = vertex;
-        }
-        else if ( i==NUI_SKELETON_POSITION_HAND_RIGHT )
-        {
+        } else if ( i==NUI_SKELETON_POSITION_HAND_RIGHT ){
 			GestureManager::Inst()->addRightHandData(vertex);
 			//if(!leftHand) guide.position = vertex;
-        }
-
-		else if(i==NUI_SKELETON_POSITION_FOOT_LEFT) {
-			
-		}else if(i== NUI_SKELETON_POSITION_FOOT_RIGHT){
+        } else if(i==NUI_SKELETON_POSITION_FOOT_LEFT) {
+			GestureManager::Inst()->addData(4, vertex);
+		} else if(i== NUI_SKELETON_POSITION_FOOT_RIGHT){
+			GestureManager::Inst()->addData(5, vertex);
 			//add checks to make sure the user is in the correct spot
-
 		}
     }
     //must be capable of handling buttons in some way...
@@ -304,10 +302,7 @@ void render()
 		ViewManager::Inst()->render(objectTexIDs);
 	}
 	
-    // Draw HUD text
-	LONG temp;
-	NuiCameraElevationGetAngle(&temp);
-    std::stringstream ss;
+     std::stringstream ss;
 	//ss << ViewManager::Inst()->getText();
     // ss << "Score: " << score << "  Life: " << (life<0 ? 0 : life);
 	//ss << "Elevation Angle: " << temp;

@@ -20,6 +20,7 @@ public:
 	
 private:
 	void shuffleDots();
+	bool feetOnTheGround(bool singleLeg, bool leftFoot);
 	bool correctForm();
 
 	//MEMBER DATA
@@ -30,7 +31,7 @@ private:
 	int score, life;
 	int phase, difficulty;
 	int framesBetweenSquats;
-	bool singleLeg, leftLeg;
+	bool leftLeg;
 	Button restart;
 	Button exit;
 
@@ -38,8 +39,14 @@ private:
 	
 	DotObject guide;	//originally set to blue
 	DotObject checkMark;
+	DotObject footMistake;
+	DotObject squatMistake;
+	DotObject legHint;
+	DotObject leftFootPlacement;
+	DotObject rightFootPlacement;
 
 	int hotDonut;		//Location of the green donut
+	int mistake;
 
 };
 

@@ -11,12 +11,16 @@ class MainMenu: public Frame{
 	public:
 		MainMenu();
 		virtual void update();
+		virtual void render(const unsigned int* objectTexIDs);
+
 	protected:
+		bool button1PressedOnce, button2PressedOnce;
 		ButtonWithTexture dotSpotButton;
 		ButtonWithTexture mazeRaceButton;
 		Slider slider;
 		DotObject phase;
 		DotObject difficulty;
+		DotObject difficulty2;
 };
 
 #endif

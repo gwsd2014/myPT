@@ -1,9 +1,41 @@
-﻿Build started 4/9/2014 12:49:03 AM.
+﻿Build started 4/16/2014 12:58:04 PM.
      1>Project "C:\Users\Lindsey\Documents\GitHub\myPT\myPT2.0\build\ch6_03_Playing_Game.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\include /IE:\Eigen\ /I"C:\Program Files\Microsoft SDKs\Kinect\v1.8\\inc" /I"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\\inc" /ZI /nologo /W3 /WX- /Od /Oy- /D DEBUG /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\obj\Debug\DotSpot\\" /Fd".\obj\Debug\DotSpot\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Menu.cpp
+         Menu.cpp
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(59): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(67): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(75): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(166): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(172): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(176): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(189): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(260): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\interaction.h(265): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\frame.h(25): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\frame.h(33): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(6): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(7): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(11): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(12): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(13): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(46): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(47): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(68): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(69): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\lindsey\documents\github\mypt\mypt2.0\menu.cpp(128): warning C4305: 'argument' : truncation from 'double' to 'float'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\bin\DotSpot_d.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\lib /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\v1.8\\lib\x86" /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\Developer Toolkit v1.8.0\\Lib\x86" opengl32.lib glu32.lib freeglut.lib FreeImage.lib Kinect10.lib FaceTrackLib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\bin\DotSpot_d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\bin\DotSpot_d.lib" /MACHINE:X86 .\obj\Debug\DotSpot\ch6_03.obj
+         .\obj\Debug\DotSpot\GestureManager.obj
+         .\obj\Debug\DotSpot\GLUtilities.obj
+         .\obj\Debug\DotSpot\TextureManager.obj
+         .\obj\Debug\DotSpot\ViewManager.obj
+         .\obj\Debug\DotSpot\DotSpot.obj
+         .\obj\Debug\DotSpot\MazeRaceGame.obj
+         .\obj\Debug\DotSpot\Menu.obj
          ch6_03_Playing_Game.vcxproj -> C:\Users\Lindsey\Documents\GitHub\myPT\myPT2.0\build\..\bin\DotSpot_d.exe
      1>Done Building Project "C:\Users\Lindsey\Documents\GitHub\myPT\myPT2.0\build\ch6_03_Playing_Game.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.13
+Time Elapsed 00:00:02.63

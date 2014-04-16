@@ -17,6 +17,7 @@ class GestureManager{
 		void addLeftHandData(vertex3 vertex);
 		void addRightHandData(vertex3 vertex);
 		void addData(int index, vertex3 vertex);
+		bool isStill(unsigned int index, int numFramesHeld);
 		float distance(int index, vertex3 vertex);
 		VertexData convertToMesh(int index);
 		int getTrailsSize(int index);
@@ -36,8 +37,8 @@ class GestureManager{
 		std::vector<vertex3> spineTrails;
 		std::vector<vertex3> hipTrails;
 
-		unsigned int holdGestureCount[2];
-		unsigned int swipeGestureCount[2];
+		unsigned int holdGestureCount[6];
+		unsigned int swipeGestureCount[6];
 		GLfloat trailColors[20][4];
 };
 
